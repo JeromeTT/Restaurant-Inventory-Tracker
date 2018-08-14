@@ -104,7 +104,7 @@ Public Class FormMain
 			dataTest.Rows.Clear()
 			For Each item In dictItemData
 				With item
-					dataTest.Rows.Add(item.Value.dataTestDate, item.Value.dataTestCost, item.Value.dataTestStart, item.Value.dataTestEnd)
+					dataTest.Rows.Add(item.Value.dataTestDate.ToString("d MMMM yyyy"), item.Value.dataTestCost, item.Value.dataTestStart, item.Value.dataTestEnd)
 					costChart.Series(0).Points.AddXY(countlol, item.Value.dataTestCost)
 					countlol += 1
 				End With
