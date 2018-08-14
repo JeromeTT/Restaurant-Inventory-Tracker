@@ -28,9 +28,9 @@ Public Class FormNewDataList
 		End If
 	End Sub
 
-	Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles ErrorTimer.Tick
+	Private Sub ErroTimer_Tick(sender As Object, e As EventArgs) Handles ErrorTimer.Tick
 		If IsValidName(txtDLName.Text) = False Then
-			datalistNameError.SetError(txtDLName, "Invalid filename.")
+			datalistNameError.SetError(txtDLName, "Invalid datalist.")
 		Else
 			datalistNameError.Dispose()
 		End If

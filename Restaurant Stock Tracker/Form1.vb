@@ -1,12 +1,10 @@
 ﻿Imports System.IO
 Public Class FormMain
 	Dim projectItemList As New List(Of String)
-	Dim listtesting() As Integer = {10, 20, 30, 35, 45, 65, 43, 32, 21, 10, 76, 76, 65, 67, 67, 67, 67, 43, 323, 4, 345, 6, 433, 3, 3}
-	Dim testinglist As New List(Of Integer)(listtesting)
 	Dim countlol As Integer = 0
 	Dim dictItemData As New Dictionary(Of String, testData)
 
-	'Global Settings OwO
+	'Global Settings
 	Public Settings As New Dictionary(Of String, String) From
 	{
 		{"varDirectory", "RestaurantTracker"},
@@ -16,6 +14,7 @@ Public Class FormMain
 		{"varProjectSelected", ""}
 	}
 
+	'testData is a value from dictionary dictItemData and contains several classes
 	Public Class testData
 		Public Property dataTestDate As Date
 		Public Property dataTestCost As Decimal
@@ -23,19 +22,25 @@ Public Class FormMain
 		Public Property dataTestEnd As Integer
 	End Class
 
+	'dataTestAdd(inputDate, inputCost, inputStart, inputEnd)
 	Private Sub dataTestAdd(inputDate, inputCost, inputStart, inputEnd)
+		'Checks if dictionary already contains key and removes if it does
 		If dictItemData.ContainsKey(inputDate) = True Then
 			dictItemData.Remove(inputDate)
 		End If
+		'Add new dictonary listing
 		dictItemData.Add(inputDate, New testData With {.dataTestDate = inputDate, .dataTestCost = inputCost, .dataTestStart = inputStart, .dataTestEnd = inputEnd})
 	End Sub
 
 	'FUNCTIONS (1)
-	'Add settings variables from other forms to main settings form
-	Public Function addSettingsVariable(variable, newvalue)
+
+	'Adds new key to settings dict and file
+	Public Function addSettingsVariable(key, newvalue)
+		'Replaces current dict listing with new key (if applicable)
 		Dim Settings = Me.Settings
-		Settings.Remove(variable)
-		Settings.Add(variable, newvalue)
+		Settings.Remove(key)
+		Settings.Add(key, newvalue)
+		'Updates settings file
 		Using settingswrite As StreamWriter = New StreamWriter(Settings("varDirectory") & "\" & Settings("varSettings"))
 			For Each array In Settings
 				settingswrite.Write(array.Key & " = " & array.Value & vbNewLine)
@@ -44,7 +49,7 @@ Public Class FormMain
 		End Using
 	End Function
 
-	'Updates settings dictionary
+	'Updates settings dict WITH values from the file
 	Public Sub dictRefresh()
 		Using settingsRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varSettings"))
 			While settingsRead.Peek <> -1
@@ -60,6 +65,7 @@ Public Class FormMain
 		lblLoadedDataset.Text = Settings("varProjectSelected")
 	End Sub
 
+	'Gets all files from selected Project directory and lists them in lstItemList
 	Private Sub fileRefresh()
 		lstItemList.Items.Clear()
 		Dim fileArray As Array = Directory.GetFiles(Settings("varDirectory") & "/" & Settings("varProjectSelected"))
@@ -113,6 +119,7 @@ Public Class FormMain
 	End Sub
 
 	Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
+		'Shows FormSettings and updates settings dict and itemlist on close
 		If FormSettings.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
 			dictRefresh()
 			fileRefresh()
@@ -120,16 +127,23 @@ Public Class FormMain
 	End Sub
 
 	Private Sub menuNewStockList_Click(sender As Object, e As EventArgs) Handles menuNewStockList.Click
+		'Shows FormNewDataList and updates settings dict and itemlist on close
 		If FormNewDataList.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
 			dictRefresh()
 			fileRefresh()
 		End If
 	End Sub
 	Private Sub OpenDataSetsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenDataSetsToolStripMenuItem.Click
+		'Shows FormDataListSelect and updates settings dict and itemlist on close
 		If FormDataListSelect.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
 			dictRefresh()
 			fileRefresh()
 		End If
+	End Sub
+
+	Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+		Dim newDate As New DateTime(2018, 5, 1)
+		lbl
 	End Sub
 End Class
 
