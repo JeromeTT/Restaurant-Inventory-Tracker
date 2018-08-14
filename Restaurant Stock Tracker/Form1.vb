@@ -94,7 +94,6 @@ Public Class FormMain
 		countlol = 0
 		If lstItemList.SelectedIndex <> -1 Then
 			Using itemFileRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varProjectSelected") & "\" & lstItemList.Text & ".txt")
-				Call MsgBox(Settings("varDirectory") & "\" & Settings("varProjectSelected") & "\" & lstItemList.Text & ".txt")
 				Dim countX = 0
 				Dim countY = 0
 				While itemFileRead.Peek <> -1
@@ -102,7 +101,6 @@ Public Class FormMain
 					dataTestAdd(lineSplitArray(0), lineSplitArray(1), lineSplitArray(2), lineSplitArray(3))
 				End While
 			End Using
-			Call MsgBox("testing")
 			dataTest.Rows.Clear()
 			For Each item In dictItemData
 				With item
