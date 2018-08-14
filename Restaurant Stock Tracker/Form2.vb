@@ -34,16 +34,8 @@ Public Class FormSettings
 
 	Private Sub btnSettingsSave_Click(sender As Object, e As EventArgs) Handles btnSettingsSave.Click
 		Dim value As String = ""
-		Dim Settings = FormMain.Settings
 		If timezoneIDdict.TryGetValue(cmbTimeZone.SelectedItem, value) Then
-			Settings.Remove("varLocalTimeZone")
-			Settings.Add("varLocalTimeZone", value)
-			Using settingswrite As StreamWriter = New StreamWriter(Settings("varDirectory") & "\" & Settings("varSettings"))
-				For Each array In Settings
-					settingswrite.Write(array.Key & " = " & array.Value & vbNewLine)
-				Next
-			End Using
-
+			FormMain.addSettingsVariable("varLocalTimeZone", value)
 			Call MsgBox("Settings have been updated.")
 			Hide()
 		End If
@@ -53,5 +45,6 @@ Public Class FormSettings
 	End Sub
 
 	Private Sub FormSettings_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+		Dispose()
 	End Sub
 End Class

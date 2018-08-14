@@ -117,19 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="lblCreateNewInstructions.Text" xml:space="preserve">
-    <value>Please choose a data list name.
-
-The data list name:
-     - Must be at least 3 to 18 characters long.
-     - Must only contain letters of the English Alphabet.
-     - Must not contain two or more consecutive spaces.
-     - Must not begin or end in a space.</value>
-  </data>
-  <metadata name="datalistNameError.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="ErrorTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>167, 17</value>
-  </metadata>
 </root>

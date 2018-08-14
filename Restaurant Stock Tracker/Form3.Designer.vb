@@ -22,6 +22,7 @@ Partial Class FormNewDataList
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
+		Me.components = New System.ComponentModel.Container()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormNewDataList))
 		Me.lblNewDataHeader = New System.Windows.Forms.Label()
 		Me.lblCreateNewInstructions = New System.Windows.Forms.Label()
@@ -29,6 +30,9 @@ Partial Class FormNewDataList
 		Me.txtDLName = New System.Windows.Forms.TextBox()
 		Me.btnCreateCancel = New System.Windows.Forms.Button()
 		Me.btnCreate = New System.Windows.Forms.Button()
+		Me.datalistNameError = New System.Windows.Forms.ErrorProvider(Me.components)
+		Me.ErrorTimer = New System.Windows.Forms.Timer(Me.components)
+		CType(Me.datalistNameError, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'lblNewDataHeader
@@ -64,7 +68,7 @@ Partial Class FormNewDataList
 		'txtDLName
 		'
 		Me.txtDLName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.txtDLName.Location = New System.Drawing.Point(154, 195)
+		Me.txtDLName.Location = New System.Drawing.Point(154, 198)
 		Me.txtDLName.Name = "txtDLName"
 		Me.txtDLName.Size = New System.Drawing.Size(202, 26)
 		Me.txtDLName.TabIndex = 3
@@ -89,6 +93,14 @@ Partial Class FormNewDataList
 		Me.btnCreate.Text = "Create"
 		Me.btnCreate.UseVisualStyleBackColor = True
 		'
+		'datalistNameError
+		'
+		Me.datalistNameError.ContainerControl = Me
+		'
+		'ErrorTimer
+		'
+		Me.ErrorTimer.Interval = 1000
+		'
 		'FormNewDataList
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -103,6 +115,7 @@ Partial Class FormNewDataList
 		Me.Controls.Add(Me.lblNewDataHeader)
 		Me.Name = "FormNewDataList"
 		Me.Text = "Create New Data List"
+		CType(Me.datalistNameError, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
@@ -114,4 +127,6 @@ Partial Class FormNewDataList
 	Friend WithEvents txtDLName As TextBox
 	Friend WithEvents btnCreateCancel As Button
 	Friend WithEvents btnCreate As Button
+	Friend WithEvents datalistNameError As ErrorProvider
+	Friend WithEvents ErrorTimer As Timer
 End Class

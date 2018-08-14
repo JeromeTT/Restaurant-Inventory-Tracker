@@ -1,65 +1,51 @@
 ﻿Imports System.IO
-
 Public Class FormMain
-	'Global Variable package OwO
+	Dim projectItemList As New List(Of String)
+	Dim listtesting() As Integer = {10, 20, 30, 35, 45, 65, 43, 32, 21, 10, 76, 76, 65, 67, 67, 67, 67, 43, 323, 4, 345, 6, 433, 3, 3}
+	Dim testinglist As New List(Of Integer)(listtesting)
+	Dim countlol As Integer = 0
+	Dim dictItemData As New Dictionary(Of String, testData)
+
+	'Global Settings OwO
 	Public Settings As New Dictionary(Of String, String) From
 	{
 		{"varDirectory", "RestaurantTracker"},
 		{"varSettings", "settings.txt"},
-		{"varLocalTimeZone", "Eastern Standard Time"}
+		{"varLocalTimeZone", "Eastern Standard Time"},
+		{"varProjectsExist", ""},
+		{"varProjectSelected", ""}
 	}
 
-	'dictItemset Classes
-	Public Class inputData
-		Public Property inputDate As Date
-		Public Property inputName As String
-		Public Property inputCost As Integer
-		Public Property inputQuantity As Integer
+	Public Class testData
+		Public Property dataTestDate As Date
+		Public Property dataTestCost As Decimal
+		Public Property dataTestStart As Integer
+		Public Property dataTestEnd As Integer
 	End Class
 
-	'dictItemset - Dictionary for items
-	Dim dictItemset As New Dictionary(Of String, inputData) From
-{
-		{"Cheese", New inputData With {.inputDate = #5/31/1993#, .inputName = "Cheese", .inputQuantity = 67}},
-		{"Toast", New inputData With {.inputDate = #5/31/1993#, .inputName = "Toast", .inputQuantity = 67}},
-		{"Bacon", New inputData With {.inputDate = #5/31/1993#, .inputName = "Bacon", .inputQuantity = 67}},
-		{"Eggs", New inputData With {.inputDate = #5/31/1993#, .inputName = "Eggs", .inputQuantity = 67}},
-		{"Lettuce", New inputData With {.inputDate = #5/31/1993#, .inputName = "Lettuce", .inputQuantity = 67}},
-		{"Tomato", New inputData With {.inputDate = #5/31/1993#, .inputName = "Tomato", .inputQuantity = 67}},
-		{"Burger", New inputData With {.inputDate = #5/31/1993#, .inputName = "Burger", .inputQuantity = 67}}
-}
-
-	'dataAdd(inputDate, inputName, inputQuantity, inputCost) to dictItemset
-	Private Sub dataAdd(inputDate, inputName, inputQuantity, inputCost)
-		dictItemset.Add(inputName, New inputData With {.inputDate = inputDate, .inputName = inputName, .inputQuantity = inputQuantity, .inputCost = inputCost})
+	Private Sub dataTestAdd(inputDate, inputCost, inputStart, inputEnd)
+		If dictItemData.ContainsKey(inputDate) = True Then
+			dictItemData.Remove(inputDate)
+		End If
+		dictItemData.Add(inputDate, New testData With {.dataTestDate = inputDate, .dataTestCost = inputCost, .dataTestStart = inputStart, .dataTestEnd = inputEnd})
 	End Sub
 
-	'CONTAINERS (2)
-	'Reload itemset into table
-	'Private Sub loadDataset()
-	'dgdRawData.Rows.Clear()
-	'For each value in itemset add values to the table
-	'For Each item In dictItemset
-	'With item
-	'	dgdRawData.Rows.Add(item.Value.inputName, item.Value.inputCost, item.Value.inputQuantity, item.Value.inputDate)
-	'End With
-	'Next
-	'End Sub
+	'FUNCTIONS (1)
+	'Add settings variables from other forms to main settings form
+	Public Function addSettingsVariable(variable, newvalue)
+		Dim Settings = Me.Settings
+		Settings.Remove(variable)
+		Settings.Add(variable, newvalue)
+		Using settingswrite As StreamWriter = New StreamWriter(Settings("varDirectory") & "\" & Settings("varSettings"))
+			For Each array In Settings
+				settingswrite.Write(array.Key & " = " & array.Value & vbNewLine)
+			Next
+			Return Nothing
+		End Using
+	End Function
 
-	'Save (NOT USED ATM)
-	Private Sub saveDataset()
-		'For each value in itemset append it to the text file
-		For Each value In dictItemset
-			With value
-				Using writefile As StreamWriter = File.AppendText(Settings("varDirectory") & "\" & Settings("varSettings") & ".txt")
-					'writefile.WriteLine(.inputDate & ", " & .inputName & ", " & .inputQuantity & ", " & .inputCost)
-				End Using
-			End With
-		Next
-	End Sub
-
-	'allUpdate() updates 
-	Public Sub allUpdate()
+	'Updates settings dictionary
+	Public Sub dictRefresh()
 		Using settingsRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varSettings"))
 			While settingsRead.Peek <> -1
 				Dim testarray() = Strings.Split(settingsRead.ReadLine, " = ")
@@ -71,16 +57,24 @@ Public Class FormMain
 				End If
 			End While
 		End Using
+		lblLoadedDataset.Text = Settings("varProjectSelected")
 	End Sub
 
-	'FUNCTIONS (1)
-	'Checks if it is correct IsValidName(string) returns boolean
-
+	Private Sub fileRefresh()
+		lstItemList.Items.Clear()
+		Dim fileArray As Array = Directory.GetFiles(Settings("varDirectory") & "/" & Settings("varProjectSelected"))
+		For Each arrayfile In fileArray
+			Dim file As New DirectoryInfo(arrayfile)
+			Dim result = file.Name.Split(".")
+			lstItemList.Items.Add(result(0))
+		Next
+	End Sub
 
 	Public Sub FormMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		CenterToScreen()
+		dictRefresh()
+		fileRefresh()
 		'Creates default directory if it doesn't exist
-		allUpdate()
 		If Directory.Exists(Settings("varDirectory")) = False Then
 			Directory.CreateDirectory(Settings("varDirectory"))
 			File.CreateText(Settings("varDirectory") & "/" & Settings("varSettings"))
@@ -94,17 +88,51 @@ Public Class FormMain
 		lblTime.Text = systemDate.ToString("T")
 	End Sub
 
-	Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
-		FormSettings.ShowDialog()
+	Private Sub lstItemList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstItemList.SelectedIndexChanged
+		dictItemData.Clear()
+		costChart.Series(0).Points.Clear()
+		countlol = 0
+		If lstItemList.SelectedIndex <> -1 Then
+			Using itemFileRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varProjectSelected") & "\" & lstItemList.Text & ".txt")
+				Call MsgBox(Settings("varDirectory") & "\" & Settings("varProjectSelected") & "\" & lstItemList.Text & ".txt")
+				Dim countX = 0
+				Dim countY = 0
+				While itemFileRead.Peek <> -1
+					Dim lineSplitArray = itemFileRead.ReadLine().Split(",")
+					dataTestAdd(lineSplitArray(0), lineSplitArray(1), lineSplitArray(2), lineSplitArray(3))
+				End While
+			End Using
+			Call MsgBox("testing")
+			dataTest.Rows.Clear()
+			For Each item In dictItemData
+				With item
+					dataTest.Rows.Add(item.Value.dataTestDate, item.Value.dataTestCost, item.Value.dataTestStart, item.Value.dataTestEnd)
+					costChart.Series(0).Points.AddXY(countlol, item.Value.dataTestCost)
+					countlol += 1
+				End With
+			Next
+		End If
 	End Sub
 
-
+	Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
+		If FormSettings.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
+			dictRefresh()
+			fileRefresh()
+		End If
+	End Sub
 
 	Private Sub menuNewStockList_Click(sender As Object, e As EventArgs) Handles menuNewStockList.Click
-		FormNewDataList.ShowDialog()
+		If FormNewDataList.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
+			dictRefresh()
+			fileRefresh()
+		End If
 	End Sub
-
-	Private Sub FormMain_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-		allUpdate()
+	Private Sub OpenDataSetsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenDataSetsToolStripMenuItem.Click
+		If FormDataListSelect.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
+			dictRefresh()
+			fileRefresh()
+		End If
 	End Sub
 End Class
+
+
