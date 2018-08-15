@@ -3,7 +3,7 @@ Public Class FormMain
 	Dim projectItemList As New List(Of String)
 	Dim countlol As Integer = 0
 	Dim dictItemData As New Dictionary(Of String, testData)
-
+	Dim newDate As Date = Date.Now
 	'Global Settings
 	Public Settings As New Dictionary(Of String, String) From
 	{
@@ -33,7 +33,6 @@ Public Class FormMain
 	End Sub
 
 	'FUNCTIONS (1)
-
 	'Adds new key to settings dict and file
 	Public Function addSettingsVariable(key, newvalue)
 		'Replaces current dict listing with new key (if applicable)
@@ -49,6 +48,22 @@ Public Class FormMain
 		End Using
 	End Function
 
+
+	Private Function monthDataReload()
+		costChart.Series(0).Points.Clear()
+		dataTest.Rows.Clear()
+		countlol = 0
+		For Each key In dictItemData
+			With key
+				If Convert.ToDateTime(key.Value.dataTestDate).Month = newDate.Month Then
+					dataTest.Rows.Add(key.Value.dataTestDate.ToString("d MMMM yyyy"), key.Value.dataTestCost, key.Value.dataTestStart, key.Value.dataTestEnd)
+					costChart.Series(0).Points.AddXY(countlol, key.Value.dataTestCost)
+					countlol += 1
+				End If
+			End With
+		Next
+
+	End Function
 	'Updates settings dict WITH values from the file
 	Public Sub dictRefresh()
 		Using settingsRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varSettings"))
@@ -80,6 +95,7 @@ Public Class FormMain
 		CenterToScreen()
 		dictRefresh()
 		fileRefresh()
+		lblDataDate.Text = newDate.ToString("MMMM yyyy")
 		'Creates default directory if it doesn't exist
 		If Directory.Exists(Settings("varDirectory")) = False Then
 			Directory.CreateDirectory(Settings("varDirectory"))
@@ -108,13 +124,6 @@ Public Class FormMain
 				End While
 			End Using
 			dataTest.Rows.Clear()
-			For Each item In dictItemData
-				With item
-					dataTest.Rows.Add(item.Value.dataTestDate.ToString("d MMMM yyyy"), item.Value.dataTestCost, item.Value.dataTestStart, item.Value.dataTestEnd)
-					costChart.Series(0).Points.AddXY(countlol, item.Value.dataTestCost)
-					countlol += 1
-				End With
-			Next
 		End If
 	End Sub
 
@@ -141,9 +150,18 @@ Public Class FormMain
 		End If
 	End Sub
 
-	Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-		Dim newDate As New DateTime(2018, 5, 1)
-		lbl
+	Private Sub btnDateBack_Click(sender As Object, e As EventArgs) Handles btnDateBack.Click
+		newDate = newDate.AddMonths(-1)
+		lblDataDate.Text = newDate.ToString("MMMM yyyy")
+		monthDataReload()
+	End Sub
+
+	Private Sub btnDateForward_Click(sender As Object, e As EventArgs) Handles btnDateForward.Click
+		If newDate.Month < Date.Now.Month Then
+			newDate = newDate.AddMonths(1)
+			lblDataDate.Text = newDate.ToString("MMMM yyyy")
+			monthDataReload()
+		End If
 	End Sub
 End Class
 

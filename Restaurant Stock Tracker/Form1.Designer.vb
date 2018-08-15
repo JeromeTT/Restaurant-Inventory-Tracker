@@ -53,11 +53,10 @@ Partial Class FormMain
 		Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.TabControl = New System.Windows.Forms.TabControl()
-		Me.Button1 = New System.Windows.Forms.Button()
-		Me.Button2 = New System.Windows.Forms.Button()
 		Me.lblDataDate = New System.Windows.Forms.Label()
-		Me.Button3 = New System.Windows.Forms.Button()
+		Me.btnDateForward = New System.Windows.Forms.Button()
+		Me.btnDateBack = New System.Windows.Forms.Button()
+		Me.TabControl = New System.Windows.Forms.TabControl()
 		Me.mnuNavigation.SuspendLayout()
 		CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.TabPage2.SuspendLayout()
@@ -199,7 +198,7 @@ Partial Class FormMain
 		Me.TabPage2.Name = "TabPage2"
 		Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
 		Me.TabPage2.RightToLeft = System.Windows.Forms.RightToLeft.No
-		Me.TabPage2.Size = New System.Drawing.Size(692, 474)
+		Me.TabPage2.Size = New System.Drawing.Size(692, 427)
 		Me.TabPage2.TabIndex = 1
 		Me.TabPage2.Text = "Cost"
 		Me.TabPage2.UseVisualStyleBackColor = True
@@ -230,20 +229,16 @@ Partial Class FormMain
 		Series1.Legend = "Legend1"
 		Series1.Name = "Cost"
 		Me.costChart.Series.Add(Series1)
-		Me.costChart.Size = New System.Drawing.Size(686, 468)
+		Me.costChart.Size = New System.Drawing.Size(686, 421)
 		Me.costChart.TabIndex = 7
 		'
 		'TabPage1
 		'
-		Me.TabPage1.Controls.Add(Me.Button3)
-		Me.TabPage1.Controls.Add(Me.lblDataDate)
-		Me.TabPage1.Controls.Add(Me.Button2)
-		Me.TabPage1.Controls.Add(Me.Button1)
 		Me.TabPage1.Controls.Add(Me.dataTest)
 		Me.TabPage1.Location = New System.Drawing.Point(4, 22)
 		Me.TabPage1.Name = "TabPage1"
 		Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-		Me.TabPage1.Size = New System.Drawing.Size(692, 474)
+		Me.TabPage1.Size = New System.Drawing.Size(692, 427)
 		Me.TabPage1.TabIndex = 0
 		Me.TabPage1.Text = "Data"
 		Me.TabPage1.UseVisualStyleBackColor = True
@@ -255,10 +250,10 @@ Partial Class FormMain
 		Me.dataTest.BackgroundColor = System.Drawing.Color.White
 		Me.dataTest.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
 		Me.dataTest.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4})
-		Me.dataTest.Location = New System.Drawing.Point(6, 47)
+		Me.dataTest.Location = New System.Drawing.Point(0, 6)
 		Me.dataTest.Name = "dataTest"
 		Me.dataTest.RowHeadersVisible = False
-		Me.dataTest.Size = New System.Drawing.Size(680, 421)
+		Me.dataTest.Size = New System.Drawing.Size(680, 415)
 		Me.dataTest.TabIndex = 0
 		'
 		'Column1
@@ -281,54 +276,45 @@ Partial Class FormMain
 		Me.Column4.HeaderText = "End Quantity"
 		Me.Column4.Name = "Column4"
 		'
+		'lblDataDate
+		'
+		Me.lblDataDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.lblDataDate.Location = New System.Drawing.Point(370, 122)
+		Me.lblDataDate.Name = "lblDataDate"
+		Me.lblDataDate.Size = New System.Drawing.Size(161, 20)
+		Me.lblDataDate.TabIndex = 12
+		Me.lblDataDate.Text = "wow"
+		Me.lblDataDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+		'
+		'btnDateForward
+		'
+		Me.btnDateForward.Location = New System.Drawing.Point(537, 122)
+		Me.btnDateForward.Name = "btnDateForward"
+		Me.btnDateForward.Size = New System.Drawing.Size(75, 23)
+		Me.btnDateForward.TabIndex = 2
+		Me.btnDateForward.Text = ">>>>>"
+		Me.btnDateForward.UseVisualStyleBackColor = True
+		'
+		'btnDateBack
+		'
+		Me.btnDateBack.Location = New System.Drawing.Point(289, 119)
+		Me.btnDateBack.Name = "btnDateBack"
+		Me.btnDateBack.Size = New System.Drawing.Size(75, 23)
+		Me.btnDateBack.TabIndex = 1
+		Me.btnDateBack.Text = "<<<<<"
+		Me.btnDateBack.UseVisualStyleBackColor = True
+		'
 		'TabControl
 		'
 		Me.TabControl.Controls.Add(Me.TabPage1)
 		Me.TabControl.Controls.Add(Me.TabPage2)
-		Me.TabControl.Location = New System.Drawing.Point(289, 114)
+		Me.TabControl.Location = New System.Drawing.Point(289, 161)
 		Me.TabControl.Margin = New System.Windows.Forms.Padding(0)
 		Me.TabControl.Name = "TabControl"
 		Me.TabControl.SelectedIndex = 0
-		Me.TabControl.Size = New System.Drawing.Size(700, 500)
+		Me.TabControl.Size = New System.Drawing.Size(700, 453)
 		Me.TabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
 		Me.TabControl.TabIndex = 8
-		'
-		'Button1
-		'
-		Me.Button1.Location = New System.Drawing.Point(6, 18)
-		Me.Button1.Name = "Button1"
-		Me.Button1.Size = New System.Drawing.Size(75, 23)
-		Me.Button1.TabIndex = 1
-		Me.Button1.Text = "<<<<<"
-		Me.Button1.UseVisualStyleBackColor = True
-		'
-		'Button2
-		'
-		Me.Button2.Location = New System.Drawing.Point(229, 18)
-		Me.Button2.Name = "Button2"
-		Me.Button2.Size = New System.Drawing.Size(75, 23)
-		Me.Button2.TabIndex = 2
-		Me.Button2.Text = ">>>>>"
-		Me.Button2.UseVisualStyleBackColor = True
-		'
-		'lblDataDate
-		'
-		Me.lblDataDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.lblDataDate.Location = New System.Drawing.Point(87, 18)
-		Me.lblDataDate.Name = "lblDataDate"
-		Me.lblDataDate.Size = New System.Drawing.Size(136, 20)
-		Me.lblDataDate.TabIndex = 12
-		Me.lblDataDate.Text = "May 2018"
-		Me.lblDataDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-		'
-		'Button3
-		'
-		Me.Button3.Location = New System.Drawing.Point(335, 15)
-		Me.Button3.Name = "Button3"
-		Me.Button3.Size = New System.Drawing.Size(75, 23)
-		Me.Button3.TabIndex = 13
-		Me.Button3.Text = "Button3"
-		Me.Button3.UseVisualStyleBackColor = True
 		'
 		'FormMain
 		'
@@ -336,8 +322,11 @@ Partial Class FormMain
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(1113, 657)
 		Me.Controls.Add(Me.Label1)
+		Me.Controls.Add(Me.btnDateForward)
+		Me.Controls.Add(Me.lblDataDate)
 		Me.Controls.Add(Me.lstItemList)
 		Me.Controls.Add(Me.lblLoadedDataset)
+		Me.Controls.Add(Me.btnDateBack)
 		Me.Controls.Add(Me.lblLoadedDatasetHeader)
 		Me.Controls.Add(Me.lblTime)
 		Me.Controls.Add(Me.lblDate)
@@ -389,7 +378,6 @@ Partial Class FormMain
 	Friend WithEvents TabPage2 As TabPage
 	Friend WithEvents costChart As DataVisualization.Charting.Chart
 	Friend WithEvents lblDataDate As Label
-	Friend WithEvents Button2 As Button
-	Friend WithEvents Button1 As Button
-	Friend WithEvents Button3 As Button
+	Friend WithEvents btnDateForward As Button
+	Friend WithEvents btnDateBack As Button
 End Class
