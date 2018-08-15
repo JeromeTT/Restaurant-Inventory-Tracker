@@ -26,6 +26,10 @@ Partial Class FormMain
 		Dim ChartArea1 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
 		Dim Legend1 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
 		Dim Series1 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+		Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+		Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+		Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+		Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
 		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormMain))
 		Me.mnuNavigation = New System.Windows.Forms.MenuStrip()
 		Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -49,14 +53,20 @@ Partial Class FormMain
 		Me.costChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
 		Me.TabPage1 = New System.Windows.Forms.TabPage()
 		Me.dataTest = New System.Windows.Forms.DataGridView()
-		Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-		Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.lblDataDate = New System.Windows.Forms.Label()
 		Me.btnDateForward = New System.Windows.Forms.Button()
 		Me.btnDateBack = New System.Windows.Forms.Button()
 		Me.TabControl = New System.Windows.Forms.TabControl()
+		Me.TabPage3 = New System.Windows.Forms.TabPage()
+		Me.consumptionChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
+		Me.btnItemAdd = New System.Windows.Forms.Button()
+		Me.Label2 = New System.Windows.Forms.Label()
+		Me.btnItemRemove = New System.Windows.Forms.Button()
+		Me.btnItemSave = New System.Windows.Forms.Button()
+		Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.Column3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+		Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.mnuNavigation.SuspendLayout()
 		CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.TabPage2.SuspendLayout()
@@ -64,6 +74,8 @@ Partial Class FormMain
 		Me.TabPage1.SuspendLayout()
 		CType(Me.dataTest, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.TabControl.SuspendLayout()
+		Me.TabPage3.SuspendLayout()
+		CType(Me.consumptionChart, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'mnuNavigation
@@ -176,9 +188,9 @@ Partial Class FormMain
 		'lstItemList
 		'
 		Me.lstItemList.FormattingEnabled = True
-		Me.lstItemList.Location = New System.Drawing.Point(48, 119)
+		Me.lstItemList.Location = New System.Drawing.Point(48, 158)
 		Me.lstItemList.Name = "lstItemList"
-		Me.lstItemList.Size = New System.Drawing.Size(187, 485)
+		Me.lstItemList.Size = New System.Drawing.Size(187, 381)
 		Me.lstItemList.TabIndex = 10
 		'
 		'Label1
@@ -225,7 +237,7 @@ Partial Class FormMain
 		Me.costChart.Name = "costChart"
 		Me.costChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
 		Series1.ChartArea = "CostChart"
-		Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line
+		Series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point
 		Series1.Legend = "Legend1"
 		Series1.Name = "Cost"
 		Me.costChart.Series.Add(Series1)
@@ -234,6 +246,7 @@ Partial Class FormMain
 		'
 		'TabPage1
 		'
+		Me.TabPage1.Controls.Add(Me.btnItemSave)
 		Me.TabPage1.Controls.Add(Me.dataTest)
 		Me.TabPage1.Location = New System.Drawing.Point(4, 22)
 		Me.TabPage1.Name = "TabPage1"
@@ -245,6 +258,9 @@ Partial Class FormMain
 		'
 		'dataTest
 		'
+		Me.dataTest.AllowUserToAddRows = False
+		Me.dataTest.AllowUserToDeleteRows = False
+		Me.dataTest.AllowUserToResizeColumns = False
 		Me.dataTest.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
 		Me.dataTest.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
 		Me.dataTest.BackgroundColor = System.Drawing.Color.White
@@ -252,29 +268,18 @@ Partial Class FormMain
 		Me.dataTest.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4})
 		Me.dataTest.Location = New System.Drawing.Point(0, 6)
 		Me.dataTest.Name = "dataTest"
+		DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+		DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+		DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(128, Byte))
+		DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+		DataGridViewCellStyle1.NullValue = Nothing
+		DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+		DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+		DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+		Me.dataTest.RowHeadersDefaultCellStyle = DataGridViewCellStyle1
 		Me.dataTest.RowHeadersVisible = False
-		Me.dataTest.Size = New System.Drawing.Size(680, 415)
+		Me.dataTest.Size = New System.Drawing.Size(680, 371)
 		Me.dataTest.TabIndex = 0
-		'
-		'Column1
-		'
-		Me.Column1.HeaderText = "Date"
-		Me.Column1.Name = "Column1"
-		'
-		'Column2
-		'
-		Me.Column2.HeaderText = "Cost"
-		Me.Column2.Name = "Column2"
-		'
-		'Column3
-		'
-		Me.Column3.HeaderText = "Start Quantity"
-		Me.Column3.Name = "Column3"
-		'
-		'Column4
-		'
-		Me.Column4.HeaderText = "End Quantity"
-		Me.Column4.Name = "Column4"
 		'
 		'lblDataDate
 		'
@@ -308,6 +313,7 @@ Partial Class FormMain
 		'
 		Me.TabControl.Controls.Add(Me.TabPage1)
 		Me.TabControl.Controls.Add(Me.TabPage2)
+		Me.TabControl.Controls.Add(Me.TabPage3)
 		Me.TabControl.Location = New System.Drawing.Point(289, 161)
 		Me.TabControl.Margin = New System.Windows.Forms.Padding(0)
 		Me.TabControl.Name = "TabControl"
@@ -316,11 +322,111 @@ Partial Class FormMain
 		Me.TabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed
 		Me.TabControl.TabIndex = 8
 		'
+		'TabPage3
+		'
+		Me.TabPage3.Controls.Add(Me.consumptionChart)
+		Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+		Me.TabPage3.Name = "TabPage3"
+		Me.TabPage3.Size = New System.Drawing.Size(692, 427)
+		Me.TabPage3.TabIndex = 2
+		Me.TabPage3.Text = "Consumption"
+		Me.TabPage3.UseVisualStyleBackColor = True
+		'
+		'consumptionChart
+		'
+		ChartArea2.AxisX.IsMarginVisible = False
+		ChartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		ChartArea2.AxisX.Title = "Day"
+		ChartArea2.AxisX2.LineColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		ChartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		ChartArea2.AxisY.Title = "Cost ($)"
+		ChartArea2.AxisY2.LineColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer))
+		ChartArea2.Name = "CostChart"
+		Me.consumptionChart.ChartAreas.Add(ChartArea2)
+		Me.consumptionChart.Dock = System.Windows.Forms.DockStyle.Fill
+		Legend2.BackColor = System.Drawing.Color.White
+		Legend2.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Legend2.IsTextAutoFit = False
+		Legend2.LegendStyle = System.Windows.Forms.DataVisualization.Charting.LegendStyle.Column
+		Legend2.Name = "Legend1"
+		Me.consumptionChart.Legends.Add(Legend2)
+		Me.consumptionChart.Location = New System.Drawing.Point(0, 0)
+		Me.consumptionChart.Name = "consumptionChart"
+		Me.consumptionChart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None
+		Series2.ChartArea = "CostChart"
+		Series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point
+		Series2.Legend = "Legend1"
+		Series2.Name = "Cost"
+		Me.consumptionChart.Series.Add(Series2)
+		Me.consumptionChart.Size = New System.Drawing.Size(692, 427)
+		Me.consumptionChart.TabIndex = 8
+		'
+		'btnItemAdd
+		'
+		Me.btnItemAdd.Location = New System.Drawing.Point(48, 545)
+		Me.btnItemAdd.Name = "btnItemAdd"
+		Me.btnItemAdd.Size = New System.Drawing.Size(187, 49)
+		Me.btnItemAdd.TabIndex = 13
+		Me.btnItemAdd.Text = "Add Item"
+		Me.btnItemAdd.UseVisualStyleBackColor = True
+		'
+		'Label2
+		'
+		Me.Label2.AutoSize = True
+		Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.Label2.Location = New System.Drawing.Point(46, 132)
+		Me.Label2.Name = "Label2"
+		Me.Label2.Size = New System.Drawing.Size(86, 24)
+		Me.Label2.TabIndex = 14
+		Me.Label2.Text = "Item List"
+		'
+		'btnItemRemove
+		'
+		Me.btnItemRemove.Location = New System.Drawing.Point(48, 600)
+		Me.btnItemRemove.Name = "btnItemRemove"
+		Me.btnItemRemove.Size = New System.Drawing.Size(187, 26)
+		Me.btnItemRemove.TabIndex = 15
+		Me.btnItemRemove.Text = "Remove Item"
+		Me.btnItemRemove.UseVisualStyleBackColor = True
+		'
+		'btnItemSave
+		'
+		Me.btnItemSave.Location = New System.Drawing.Point(605, 388)
+		Me.btnItemSave.Name = "btnItemSave"
+		Me.btnItemSave.Size = New System.Drawing.Size(75, 23)
+		Me.btnItemSave.TabIndex = 1
+		Me.btnItemSave.Text = "Save Changes"
+		Me.btnItemSave.UseVisualStyleBackColor = True
+		'
+		'Column1
+		'
+		Me.Column1.HeaderText = "Date"
+		Me.Column1.Name = "Column1"
+		Me.Column1.ReadOnly = True
+		'
+		'Column2
+		'
+		Me.Column2.HeaderText = "Cost"
+		Me.Column2.Name = "Column2"
+		'
+		'Column3
+		'
+		Me.Column3.HeaderText = "Start Quantity"
+		Me.Column3.Name = "Column3"
+		'
+		'Column4
+		'
+		Me.Column4.HeaderText = "End Quantity"
+		Me.Column4.Name = "Column4"
+		'
 		'FormMain
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(1113, 657)
+		Me.Controls.Add(Me.btnItemRemove)
+		Me.Controls.Add(Me.Label2)
+		Me.Controls.Add(Me.btnItemAdd)
 		Me.Controls.Add(Me.Label1)
 		Me.Controls.Add(Me.btnDateForward)
 		Me.Controls.Add(Me.lblDataDate)
@@ -345,6 +451,8 @@ Partial Class FormMain
 		Me.TabPage1.ResumeLayout(False)
 		CType(Me.dataTest, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.TabControl.ResumeLayout(False)
+		Me.TabPage3.ResumeLayout(False)
+		CType(Me.consumptionChart, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
@@ -371,13 +479,19 @@ Partial Class FormMain
 	Private WithEvents TabControl As TabControl
 	Friend WithEvents TabPage1 As TabPage
 	Friend WithEvents dataTest As DataGridView
-	Friend WithEvents Column1 As DataGridViewTextBoxColumn
-	Friend WithEvents Column2 As DataGridViewTextBoxColumn
-	Friend WithEvents Column3 As DataGridViewTextBoxColumn
-	Friend WithEvents Column4 As DataGridViewTextBoxColumn
 	Friend WithEvents TabPage2 As TabPage
 	Friend WithEvents costChart As DataVisualization.Charting.Chart
 	Friend WithEvents lblDataDate As Label
 	Friend WithEvents btnDateForward As Button
 	Friend WithEvents btnDateBack As Button
+	Friend WithEvents TabPage3 As TabPage
+	Friend WithEvents consumptionChart As DataVisualization.Charting.Chart
+	Friend WithEvents btnItemRemove As Button
+	Friend WithEvents Label2 As Label
+	Friend WithEvents btnItemAdd As Button
+	Friend WithEvents btnItemSave As Button
+	Friend WithEvents Column1 As DataGridViewTextBoxColumn
+	Friend WithEvents Column2 As DataGridViewTextBoxColumn
+	Friend WithEvents Column3 As DataGridViewTextBoxColumn
+	Friend WithEvents Column4 As DataGridViewTextBoxColumn
 End Class

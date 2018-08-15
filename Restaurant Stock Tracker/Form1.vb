@@ -48,24 +48,25 @@ Public Class FormMain
 		End Using
 	End Function
 
-
 	Private Function monthDataReload()
 		costChart.Series(0).Points.Clear()
+		consumptionChart.Series(0).Points.Clear()
 		dataTest.Rows.Clear()
 		countlol = 0
 		For Each key In dictItemData
 			With key
-				If Convert.ToDateTime(key.Value.dataTestDate).Month = newDate.Month Then
+				If Convert.ToDateTime(key.Value.dataTestDate).Month = newDate.Month And Convert.ToDateTime(key.Value.dataTestDate).Year = newDate.Year Then
 					dataTest.Rows.Add(key.Value.dataTestDate.ToString("d MMMM yyyy"), key.Value.dataTestCost, key.Value.dataTestStart, key.Value.dataTestEnd)
 					costChart.Series(0).Points.AddXY(countlol, key.Value.dataTestCost)
+					consumptionChart.Series(0).Points.AddXY(countlol, key.Value.dataTestStart - key.Value.dataTestEnd)
 					countlol += 1
 				End If
 			End With
 		Next
-
+		Return Nothing
 	End Function
 	'Updates settings dict WITH values from the file
-	Public Sub dictRefresh()
+	Public Sub dictSettingsRefresh()
 		Using settingsRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varSettings"))
 			While settingsRead.Peek <> -1
 				Dim testarray() = Strings.Split(settingsRead.ReadLine, " = ")
@@ -81,7 +82,7 @@ Public Class FormMain
 	End Sub
 
 	'Gets all files from selected Project directory and lists them in lstItemList
-	Private Sub fileRefresh()
+	Private Sub itemListRefresh()
 		lstItemList.Items.Clear()
 		Dim fileArray As Array = Directory.GetFiles(Settings("varDirectory") & "/" & Settings("varProjectSelected"))
 		For Each arrayfile In fileArray
@@ -93,8 +94,8 @@ Public Class FormMain
 
 	Public Sub FormMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		CenterToScreen()
-		dictRefresh()
-		fileRefresh()
+		dictSettingsRefresh()
+		itemListRefresh()
 		lblDataDate.Text = newDate.ToString("MMMM yyyy")
 		'Creates default directory if it doesn't exist
 		If Directory.Exists(Settings("varDirectory")) = False Then
@@ -124,29 +125,30 @@ Public Class FormMain
 				End While
 			End Using
 			dataTest.Rows.Clear()
+			monthDataReload()
 		End If
 	End Sub
 
 	Private Sub MenuToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles MenuToolStripMenuItem.Click
 		'Shows FormSettings and updates settings dict and itemlist on close
 		If FormSettings.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
-			dictRefresh()
-			fileRefresh()
+			dictSettingsRefresh()
+			itemListRefresh()
 		End If
 	End Sub
 
 	Private Sub menuNewStockList_Click(sender As Object, e As EventArgs) Handles menuNewStockList.Click
 		'Shows FormNewDataList and updates settings dict and itemlist on close
 		If FormNewDataList.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
-			dictRefresh()
-			fileRefresh()
+			dictSettingsRefresh()
+			itemListRefresh()
 		End If
 	End Sub
 	Private Sub OpenDataSetsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenDataSetsToolStripMenuItem.Click
 		'Shows FormDataListSelect and updates settings dict and itemlist on close
 		If FormDataListSelect.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
-			dictRefresh()
-			fileRefresh()
+			dictSettingsRefresh()
+			itemListRefresh()
 		End If
 	End Sub
 
@@ -157,11 +159,47 @@ Public Class FormMain
 	End Sub
 
 	Private Sub btnDateForward_Click(sender As Object, e As EventArgs) Handles btnDateForward.Click
-		If newDate.Month < Date.Now.Month Then
+		If newDate.Year < Date.Now.Year Then
+			newDate = newDate.AddMonths(1)
+			lblDataDate.Text = newDate.ToString("MMMM yyyy")
+			monthDataReload()
+		ElseIf newDate.Month < Date.Now.Month Then
 			newDate = newDate.AddMonths(1)
 			lblDataDate.Text = newDate.ToString("MMMM yyyy")
 			monthDataReload()
 		End If
+	End Sub
+
+	Private Sub btnItemRemove_Click(sender As Object, e As EventArgs) Handles btnItemRemove.Click
+		If lstItemList.SelectedIndex = -1 Then
+			Call MsgBox("Please select an item to delete.")
+		Else
+			My.Computer.FileSystem.DeleteFile(Settings("varDirectory") & "\" & Settings("varProjectSelected") & "\" & lstItemList.Text & ".txt")
+			lstItemList.Items.Remove(lstItemList.SelectedItem)
+			Call MsgBox("Item removed")
+		End If
+
+	End Sub
+
+	Private Sub btnItemAdd_Click(sender As Object, e As EventArgs) Handles btnItemAdd.Click
+		If FormAddItem.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
+			dictSettingsRefresh()
+			itemListRefresh()
+		End If
+	End Sub
+
+	Private Sub dataTest_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles dataTest.CellValidating
+		Select Case e.ColumnIndex
+			Case 0
+				If e.FormattedValue.Isdate() = False Then
+				End If
+			Case 1
+				Call MsgBox("decimal")
+			Case 2 To 3
+				Call MsgBox("Integer")
+
+		End Select
+		Call MsgBox(e.FormattedValue.ToString())
 	End Sub
 End Class
 
