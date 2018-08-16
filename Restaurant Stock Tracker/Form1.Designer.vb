@@ -54,9 +54,7 @@ Partial Class FormMain
 		Me.cmbCost = New System.Windows.Forms.ComboBox()
 		Me.costChart = New System.Windows.Forms.DataVisualization.Charting.Chart()
 		Me.TabPage1 = New System.Windows.Forms.TabPage()
-		Me.btnItemCancel = New System.Windows.Forms.Button()
 		Me.Label5 = New System.Windows.Forms.Label()
-		Me.btnItemSave = New System.Windows.Forms.Button()
 		Me.dataMain = New System.Windows.Forms.DataGridView()
 		Me.Column1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.Column2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -64,7 +62,6 @@ Partial Class FormMain
 		Me.Column4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
 		Me.lblDataDate = New System.Windows.Forms.Label()
 		Me.btnDateForward = New System.Windows.Forms.Button()
-		Me.btnDateBack = New System.Windows.Forms.Button()
 		Me.TabControl = New System.Windows.Forms.TabControl()
 		Me.TabPage3 = New System.Windows.Forms.TabPage()
 		Me.Label4 = New System.Windows.Forms.Label()
@@ -75,6 +72,8 @@ Partial Class FormMain
 		Me.btnItemRemove = New System.Windows.Forms.Button()
 		Me.lblSelectedItem = New System.Windows.Forms.Label()
 		Me.btnSettings = New System.Windows.Forms.Button()
+		Me.btnDateBack = New System.Windows.Forms.Button()
+		Me.Panel1 = New System.Windows.Forms.Panel()
 		Me.mnuNavigation.SuspendLayout()
 		CType(Me.ErrorProvider1, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.TabPage2.SuspendLayout()
@@ -84,6 +83,7 @@ Partial Class FormMain
 		Me.TabControl.SuspendLayout()
 		Me.TabPage3.SuspendLayout()
 		CType(Me.consumptionChart, System.ComponentModel.ISupportInitialize).BeginInit()
+		Me.Panel1.SuspendLayout()
 		Me.SuspendLayout()
 		'
 		'mnuNavigation
@@ -91,7 +91,7 @@ Partial Class FormMain
 		Me.mnuNavigation.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.MenuToolStripMenuItem, Me.HelpToolStripMenuItem, Me.AboutToolStripMenuItem})
 		Me.mnuNavigation.Location = New System.Drawing.Point(0, 0)
 		Me.mnuNavigation.Name = "mnuNavigation"
-		Me.mnuNavigation.Size = New System.Drawing.Size(938, 24)
+		Me.mnuNavigation.Size = New System.Drawing.Size(955, 24)
 		Me.mnuNavigation.TabIndex = 0
 		Me.mnuNavigation.Text = "MenuStrip1"
 		'
@@ -242,6 +242,7 @@ Partial Class FormMain
 		'
 		'cmbCost
 		'
+		Me.cmbCost.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbCost.FormattingEnabled = True
 		Me.cmbCost.Items.AddRange(New Object() {"Dot", "Line", "Spline"})
 		Me.cmbCost.Location = New System.Drawing.Point(559, 53)
@@ -274,9 +275,7 @@ Partial Class FormMain
 		'
 		'TabPage1
 		'
-		Me.TabPage1.Controls.Add(Me.btnItemCancel)
 		Me.TabPage1.Controls.Add(Me.Label5)
-		Me.TabPage1.Controls.Add(Me.btnItemSave)
 		Me.TabPage1.Controls.Add(Me.dataMain)
 		Me.TabPage1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.TabPage1.Location = New System.Drawing.Point(4, 22)
@@ -287,33 +286,15 @@ Partial Class FormMain
 		Me.TabPage1.Text = "Data"
 		Me.TabPage1.UseVisualStyleBackColor = True
 		'
-		'btnItemCancel
-		'
-		Me.btnItemCancel.Location = New System.Drawing.Point(387, 15)
-		Me.btnItemCancel.Name = "btnItemCancel"
-		Me.btnItemCancel.Size = New System.Drawing.Size(137, 36)
-		Me.btnItemCancel.TabIndex = 2
-		Me.btnItemCancel.Text = "Remove Changes"
-		Me.btnItemCancel.UseVisualStyleBackColor = True
-		'
 		'Label5
 		'
 		Me.Label5.AutoSize = True
 		Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label5.Location = New System.Drawing.Point(6, 15)
+		Me.Label5.Location = New System.Drawing.Point(6, 22)
 		Me.Label5.Name = "Label5"
 		Me.Label5.Size = New System.Drawing.Size(222, 18)
 		Me.Label5.TabIndex = 1
 		Me.Label5.Text = "Double click any row to edit."
-		'
-		'btnItemSave
-		'
-		Me.btnItemSave.Location = New System.Drawing.Point(530, 15)
-		Me.btnItemSave.Name = "btnItemSave"
-		Me.btnItemSave.Size = New System.Drawing.Size(156, 36)
-		Me.btnItemSave.TabIndex = 1
-		Me.btnItemSave.Text = "Save Changes"
-		Me.btnItemSave.UseVisualStyleBackColor = True
 		'
 		'dataMain
 		'
@@ -377,7 +358,7 @@ Partial Class FormMain
 		'lblDataDate
 		'
 		Me.lblDataDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.lblDataDate.Location = New System.Drawing.Point(309, 132)
+		Me.lblDataDate.Location = New System.Drawing.Point(84, 9)
 		Me.lblDataDate.Name = "lblDataDate"
 		Me.lblDataDate.Size = New System.Drawing.Size(161, 20)
 		Me.lblDataDate.TabIndex = 12
@@ -386,28 +367,19 @@ Partial Class FormMain
 		'
 		'btnDateForward
 		'
-		Me.btnDateForward.Location = New System.Drawing.Point(476, 132)
+		Me.btnDateForward.Location = New System.Drawing.Point(251, 9)
 		Me.btnDateForward.Name = "btnDateForward"
 		Me.btnDateForward.Size = New System.Drawing.Size(75, 23)
 		Me.btnDateForward.TabIndex = 2
 		Me.btnDateForward.Text = ">>>>>"
 		Me.btnDateForward.UseVisualStyleBackColor = True
 		'
-		'btnDateBack
-		'
-		Me.btnDateBack.Location = New System.Drawing.Point(228, 132)
-		Me.btnDateBack.Name = "btnDateBack"
-		Me.btnDateBack.Size = New System.Drawing.Size(75, 23)
-		Me.btnDateBack.TabIndex = 1
-		Me.btnDateBack.Text = "<<<<<"
-		Me.btnDateBack.UseVisualStyleBackColor = True
-		'
 		'TabControl
 		'
 		Me.TabControl.Controls.Add(Me.TabPage1)
 		Me.TabControl.Controls.Add(Me.TabPage2)
 		Me.TabControl.Controls.Add(Me.TabPage3)
-		Me.TabControl.Location = New System.Drawing.Point(228, 164)
+		Me.TabControl.Location = New System.Drawing.Point(3, 32)
 		Me.TabControl.Margin = New System.Windows.Forms.Padding(0)
 		Me.TabControl.Name = "TabControl"
 		Me.TabControl.SelectedIndex = 0
@@ -440,6 +412,7 @@ Partial Class FormMain
 		'
 		'cmbConsumption
 		'
+		Me.cmbConsumption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
 		Me.cmbConsumption.FormattingEnabled = True
 		Me.cmbConsumption.Items.AddRange(New Object() {"Dot", "Line", "Spline"})
 		Me.cmbConsumption.Location = New System.Drawing.Point(556, 49)
@@ -518,27 +491,44 @@ Partial Class FormMain
 		Me.btnSettings.Text = "Item Settings"
 		Me.btnSettings.UseVisualStyleBackColor = True
 		'
+		'btnDateBack
+		'
+		Me.btnDateBack.Location = New System.Drawing.Point(3, 6)
+		Me.btnDateBack.Name = "btnDateBack"
+		Me.btnDateBack.Size = New System.Drawing.Size(75, 23)
+		Me.btnDateBack.TabIndex = 1
+		Me.btnDateBack.Text = "<<<<<"
+		Me.btnDateBack.UseVisualStyleBackColor = True
+		'
+		'Panel1
+		'
+		Me.Panel1.Controls.Add(Me.btnDateBack)
+		Me.Panel1.Controls.Add(Me.lblDataDate)
+		Me.Panel1.Controls.Add(Me.btnDateForward)
+		Me.Panel1.Controls.Add(Me.TabControl)
+		Me.Panel1.Location = New System.Drawing.Point(228, 132)
+		Me.Panel1.Name = "Panel1"
+		Me.Panel1.Size = New System.Drawing.Size(710, 478)
+		Me.Panel1.TabIndex = 2
+		'
 		'FormMain
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(938, 657)
+		Me.ClientSize = New System.Drawing.Size(955, 657)
+		Me.Controls.Add(Me.Panel1)
 		Me.Controls.Add(Me.btnSettings)
 		Me.Controls.Add(Me.lblSelectedItem)
 		Me.Controls.Add(Me.btnItemRemove)
 		Me.Controls.Add(Me.Label2)
 		Me.Controls.Add(Me.btnItemAdd)
 		Me.Controls.Add(Me.Label1)
-		Me.Controls.Add(Me.btnDateForward)
-		Me.Controls.Add(Me.lblDataDate)
 		Me.Controls.Add(Me.lstItemList)
 		Me.Controls.Add(Me.lblLoadedDataset)
-		Me.Controls.Add(Me.btnDateBack)
 		Me.Controls.Add(Me.lblLoadedDatasetHeader)
 		Me.Controls.Add(Me.lblTime)
 		Me.Controls.Add(Me.lblDate)
 		Me.Controls.Add(Me.mnuNavigation)
-		Me.Controls.Add(Me.TabControl)
 		Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
 		Me.MainMenuStrip = Me.mnuNavigation
 		Me.Name = "FormMain"
@@ -557,6 +547,7 @@ Partial Class FormMain
 		Me.TabPage3.ResumeLayout(False)
 		Me.TabPage3.PerformLayout()
 		CType(Me.consumptionChart, System.ComponentModel.ISupportInitialize).EndInit()
+		Me.Panel1.ResumeLayout(False)
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
@@ -587,13 +578,11 @@ Partial Class FormMain
 	Friend WithEvents costChart As DataVisualization.Charting.Chart
 	Friend WithEvents lblDataDate As Label
 	Friend WithEvents btnDateForward As Button
-	Friend WithEvents btnDateBack As Button
 	Friend WithEvents TabPage3 As TabPage
 	Friend WithEvents consumptionChart As DataVisualization.Charting.Chart
 	Friend WithEvents btnItemRemove As Button
 	Friend WithEvents Label2 As Label
 	Friend WithEvents btnItemAdd As Button
-	Friend WithEvents btnItemSave As Button
 	Friend WithEvents lblSelectedItem As Label
 	Friend WithEvents Label3 As Label
 	Friend WithEvents cmbCost As ComboBox
@@ -601,10 +590,11 @@ Partial Class FormMain
 	Friend WithEvents cmbConsumption As ComboBox
 	Friend WithEvents Label5 As Label
 	Friend WithEvents AboutToolStripMenuItem As ToolStripMenuItem
-	Friend WithEvents btnItemCancel As Button
 	Friend WithEvents Column1 As DataGridViewTextBoxColumn
 	Friend WithEvents Column2 As DataGridViewTextBoxColumn
 	Friend WithEvents Column3 As DataGridViewTextBoxColumn
 	Friend WithEvents Column4 As DataGridViewTextBoxColumn
 	Friend WithEvents btnSettings As Button
+	Friend WithEvents Panel1 As Panel
+	Friend WithEvents btnDateBack As Button
 End Class

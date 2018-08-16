@@ -1,8 +1,8 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
 Public Class FormMain
-	Dim projectItemList As New List(Of String)
-	Dim dictItemData As New Dictionary(Of String, testData)
+	Public dataGridValues As New List(Of String)
+	Public dictItemData As New SortedDictionary(Of Date, testData)
 	Dim newDate As Date = Date.Now
 	'Global Settings
 	Public Settings As New Dictionary(Of String, String) From
@@ -10,29 +10,28 @@ Public Class FormMain
 		{"varDirectory", "RestaurantTracker"},
 		{"varSettings", "settings.txt"},
 		{"varLocalTimeZone", "Eastern Standard Time"},
-		{"varProjectsExist", ""},
 		{"varProjectSelected", ""}
 	}
 
 	'testData is a value from dictionary dictItemData and contains several classes
 	Public Class testData
-		Public Property dataTestDate As Date
-		Public Property dataTestCost As Decimal
-		Public Property dataTestStart As Integer
-		Public Property dataTestEnd As Integer
+		Public Property dataDate As Date
+		Public Property dataCost As Decimal
+		Public Property dataStart As Integer
+		Public Property dataEnd As Integer
 	End Class
 
+	'FUNCTIONS(2)
 	'dataTestAdd(inputDate, inputCost, inputStart, inputEnd)
-	Private Sub dataTestAdd(inputDate, inputCost, inputStart, inputEnd)
+	Public Sub dataTestAdd(inputDate, inputCost, inputStart, inputEnd)
 		'Checks if dictionary already contains key and removes if it does
 		If dictItemData.ContainsKey(inputDate) = True Then
 			dictItemData.Remove(inputDate)
 		End If
 		'Add new dictonary listing
-		dictItemData.Add(inputDate, New testData With {.dataTestDate = inputDate, .dataTestCost = inputCost, .dataTestStart = inputStart, .dataTestEnd = inputEnd})
+		dictItemData.Add(inputDate, New testData With {.dataDate = inputDate, .dataCost = inputCost, .dataStart = inputStart, .dataEnd = inputEnd})
 	End Sub
 
-	'FUNCTIONS (1)
 	'Adds new key to settings dict and file
 	Public Function addSettingsVariable(key, newvalue)
 		'Replaces current dict listing with new key (if applicable)
@@ -48,11 +47,14 @@ Public Class FormMain
 		End Using
 	End Function
 
-	Private Sub monthDataReload()
+	Private Sub DataReload()
+		Dim countlol = 0
+		'Clears the table and 2 charts
 		costChart.Series(0).Points.Clear()
 		consumptionChart.Series(0).Points.Clear()
 		dataMain.Rows.Clear()
-		Dim countlol = 0
+
+		'Adds eac
 		Dim numDays = DateTime.DaysInMonth(newDate.Year, newDate.Month)
 		For dayindex As Integer = 1 To numDays
 			Dim listDate = New Date(newDate.Year, newDate.Month, dayindex)
@@ -60,18 +62,19 @@ Public Class FormMain
 				dataMain.Rows.Add(listDate)
 			End If
 		Next
+
 		For Each key In dictItemData
 			With key
-				If Convert.ToDateTime(key.Value.dataTestDate).Month = newDate.Month And Convert.ToDateTime(key.Value.dataTestDate).Year = newDate.Year Then
+				If Convert.ToDateTime(key.Value.dataDate).Month = newDate.Month And Convert.ToDateTime(key.Value.dataDate).Year = newDate.Year Then
 					For Each row In dataMain.Rows
-						If row.Cells(0).Value.ToString = key.Value.dataTestDate Then
+						If row.Cells(0).Value.ToString = key.Value.dataDate Then
 							dataMain.Rows.Remove(row)
 						End If
 					Next
-					dataMain.Rows.Add(key.Value.dataTestDate, key.Value.dataTestCost, key.Value.dataTestStart, key.Value.dataTestEnd)
+					dataMain.Rows.Add(key.Value.dataDate, key.Value.dataCost, key.Value.dataStart, key.Value.dataEnd)
 
-					costChart.Series(0).Points.AddXY(countlol, key.Value.dataTestCost)
-					consumptionChart.Series(0).Points.AddXY(countlol, key.Value.dataTestStart - key.Value.dataTestEnd)
+					costChart.Series(0).Points.AddXY(countlol, key.Value.dataCost)
+					consumptionChart.Series(0).Points.AddXY(countlol, key.Value.dataStart - key.Value.dataEnd)
 					countlol += 1
 				End If
 			End With
@@ -88,12 +91,12 @@ Public Class FormMain
 	Public Sub dictSettingsRefresh()
 		Using settingsRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varSettings"))
 			While settingsRead.Peek <> -1
-				Dim testarray() = Strings.Split(settingsRead.ReadLine, " = ")
-				If Settings.ContainsKey(testarray(0)) Then
-					Settings.Remove(testarray(0))
-					Settings.Add(testarray(0), testarray(1))
+				Dim dictarray() = Strings.Split(settingsRead.ReadLine, " = ")
+				If Settings.ContainsKey(dictarray(0)) Then
+					Settings.Remove(dictarray(0))
+					Settings.Add(dictarray(0), dictarray(1))
 				Else
-					Settings.Add(testarray(0), testarray(1))
+					Settings.Add(dictarray(0), dictarray(1))
 				End If
 			End While
 		End Using
@@ -115,6 +118,7 @@ Public Class FormMain
 		CenterToScreen()
 		dictSettingsRefresh()
 		itemListRefresh()
+		DataReload()
 		lblDataDate.Text = newDate.ToString("MMMM yyyy")
 		'Creates default directory if it doesn't exist
 		If Directory.Exists(Settings("varDirectory")) = False Then
@@ -128,6 +132,11 @@ Public Class FormMain
 		Dim systemDate As Date = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(Date.UtcNow, Settings("varLocalTimeZone"))
 		lblDate.Text = systemDate.ToString("D")
 		lblTime.Text = systemDate.ToString("T")
+		If lstItemList.SelectedIndex = -1 Then
+			Panel1.Enabled = False
+			lblSelectedItem.Text = "Please select an item."
+		Else Panel1.Enabled = True
+		End If
 	End Sub
 
 	Private Sub lstItemList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstItemList.SelectedIndexChanged
@@ -145,7 +154,7 @@ Public Class FormMain
 				End While
 			End Using
 			dataMain.Rows.Clear()
-			monthDataReload()
+			DataReload()
 		End If
 	End Sub
 
@@ -175,18 +184,18 @@ Public Class FormMain
 	Private Sub btnDateBack_Click(sender As Object, e As EventArgs) Handles btnDateBack.Click
 		newDate = newDate.AddMonths(-1)
 		lblDataDate.Text = newDate.ToString("MMMM yyyy")
-		monthDataReload()
+		DataReload()
 	End Sub
 
 	Private Sub btnDateForward_Click(sender As Object, e As EventArgs) Handles btnDateForward.Click
 		If newDate.Year < Date.Now.Year Then
 			newDate = newDate.AddMonths(1)
 			lblDataDate.Text = newDate.ToString("MMMM yyyy")
-			monthDataReload()
+			DataReload()
 		ElseIf newDate.Month < Date.Now.Month Then
 			newDate = newDate.AddMonths(1)
 			lblDataDate.Text = newDate.ToString("MMMM yyyy")
-			monthDataReload()
+			DataReload()
 		End If
 	End Sub
 
@@ -243,8 +252,24 @@ Public Class FormMain
 	End Sub
 
 	Private Sub dataMain_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dataMain.CellMouseDoubleClick
-		Dim index = dataMain.CurrentCell.RowIndex
-		Call MsgBox(dataMain.Rows(index).Cells(0).Value)
+		dataGridValues.Clear()
+		Dim Index = dataMain.CurrentCell.RowIndex
+		For Each cell In dataMain.Rows(Index).Cells
+			dataGridValues.Add(cell.value)
+		Next
+		If FormItemEdit.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
+			File.WriteAllText(Settings("varDirectory") & "\" & Settings("varProjectSelected") & "\" & lstItemList.Text & ".txt", String.Empty)
+			Using itemFileWrite As StreamWriter = New StreamWriter(Settings("varDirectory") & "\" & Settings("varProjectSelected") & "\" & lstItemList.Text & ".txt")
+				For Each pair In dictItemData
+					itemFileWrite.Write(pair.Key & "," & pair.Value.dataCost & "," & pair.Value.dataStart & "," & pair.Value.dataEnd & vbNewLine)
+				Next
+			End Using
+
+			dictSettingsRefresh()
+			itemListRefresh()
+			DataReload()
+		End If
+
 	End Sub
 End Class
 
