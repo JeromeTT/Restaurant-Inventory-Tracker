@@ -1,7 +1,7 @@
-﻿Imports System.IO
+﻿Imports System.ComponentModel
+Imports System.IO
 Public Class FormMain
 	Dim projectItemList As New List(Of String)
-	Dim countlol As Integer = 0
 	Dim dictItemData As New Dictionary(Of String, testData)
 	Dim newDate As Date = Date.Now
 	'Global Settings
@@ -48,23 +48,42 @@ Public Class FormMain
 		End Using
 	End Function
 
-	Private Function monthDataReload()
+	Private Sub monthDataReload()
 		costChart.Series(0).Points.Clear()
 		consumptionChart.Series(0).Points.Clear()
-		dataTest.Rows.Clear()
-		countlol = 0
+		dataMain.Rows.Clear()
+		Dim countlol = 0
+		Dim numDays = DateTime.DaysInMonth(newDate.Year, newDate.Month)
+		For dayindex As Integer = 1 To numDays
+			Dim listDate = New Date(newDate.Year, newDate.Month, dayindex)
+			If listDate <= Date.Today Then
+				dataMain.Rows.Add(listDate)
+			End If
+		Next
 		For Each key In dictItemData
 			With key
 				If Convert.ToDateTime(key.Value.dataTestDate).Month = newDate.Month And Convert.ToDateTime(key.Value.dataTestDate).Year = newDate.Year Then
-					dataTest.Rows.Add(key.Value.dataTestDate.ToString("d MMMM yyyy"), key.Value.dataTestCost, key.Value.dataTestStart, key.Value.dataTestEnd)
+					For Each row In dataMain.Rows
+						If row.Cells(0).Value.ToString = key.Value.dataTestDate Then
+							dataMain.Rows.Remove(row)
+						End If
+					Next
+					dataMain.Rows.Add(key.Value.dataTestDate, key.Value.dataTestCost, key.Value.dataTestStart, key.Value.dataTestEnd)
+
 					costChart.Series(0).Points.AddXY(countlol, key.Value.dataTestCost)
 					consumptionChart.Series(0).Points.AddXY(countlol, key.Value.dataTestStart - key.Value.dataTestEnd)
 					countlol += 1
 				End If
 			End With
 		Next
-		Return Nothing
-	End Function
+		For Each row In dataMain.Rows
+			If row.Cells(0).Value = Date.Today Then
+				row.DefaultCellStyle.BackColor = Color.LightCyan
+			End If
+		Next
+		dataMain.Sort(Column1, ListSortDirection.Descending)
+	End Sub
+
 	'Updates settings dict WITH values from the file
 	Public Sub dictSettingsRefresh()
 		Using settingsRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varSettings"))
@@ -112,9 +131,10 @@ Public Class FormMain
 	End Sub
 
 	Private Sub lstItemList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstItemList.SelectedIndexChanged
+		lblSelectedItem.Text = "Selected Item: " & lstItemList.Text
 		dictItemData.Clear()
 		costChart.Series(0).Points.Clear()
-		countlol = 0
+		Dim countlol = 0
 		If lstItemList.SelectedIndex <> -1 Then
 			Using itemFileRead As StreamReader = New StreamReader(Settings("varDirectory") & "\" & Settings("varProjectSelected") & "\" & lstItemList.Text & ".txt")
 				Dim countX = 0
@@ -124,7 +144,7 @@ Public Class FormMain
 					dataTestAdd(lineSplitArray(0), lineSplitArray(1), lineSplitArray(2), lineSplitArray(3))
 				End While
 			End Using
-			dataTest.Rows.Clear()
+			dataMain.Rows.Clear()
 			monthDataReload()
 		End If
 	End Sub
@@ -188,18 +208,43 @@ Public Class FormMain
 		End If
 	End Sub
 
-	Private Sub dataTest_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles dataTest.CellValidating
+	Private Sub dataTest_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles dataMain.CellValidating
 		Select Case e.ColumnIndex
-			Case 0
-				If e.FormattedValue.Isdate() = False Then
-				End If
-			Case 1
-				Call MsgBox("decimal")
-			Case 2 To 3
-				Call MsgBox("Integer")
-
 		End Select
-		Call MsgBox(e.FormattedValue.ToString())
+	End Sub
+
+	Private Sub cmbConsumption_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbConsumption.SelectedIndexChanged
+		Select Case cmbConsumption.Text
+			Case "Dot"
+				consumptionChart.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.Point
+			Case "Line"
+				consumptionChart.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.Line
+			Case "Spline"
+				consumptionChart.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.Spline
+		End Select
+	End Sub
+
+	Private Sub cmbCost_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCost.SelectedIndexChanged
+		Select Case cmbCost.Text
+			Case "Dot"
+				costChart.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.Point
+			Case "Line"
+				costChart.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.Line
+			Case "Spline"
+				costChart.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.Spline
+		End Select
+	End Sub
+
+	Private Sub btnSettings_Click(sender As Object, e As EventArgs) Handles btnSettings.Click
+		If FormItemInfo.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
+			dictSettingsRefresh()
+			itemListRefresh()
+		End If
+	End Sub
+
+	Private Sub dataMain_CellMouseDoubleClick(sender As Object, e As DataGridViewCellMouseEventArgs) Handles dataMain.CellMouseDoubleClick
+		Dim index = dataMain.CurrentCell.RowIndex
+		Call MsgBox(dataMain.Rows(index).Cells(0).Value)
 	End Sub
 End Class
 

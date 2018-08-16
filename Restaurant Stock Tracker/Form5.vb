@@ -1,4 +1,4 @@
-﻿
+﻿Imports System.ComponentModel
 Imports System.IO
 Public Class FormAddItem
 	Dim Settings = FormMain.Settings
@@ -20,14 +20,23 @@ Public Class FormAddItem
 	Private Sub btnItemAdd_Click(sender As Object, e As EventArgs) Handles btnItemAdd.Click
 		If IsValidName(txtItemName.Text) = True Then
 			If File.Exists("RestaurantTracker\" & txtItemName.Text & ".txt") = False Then
-				File.Create("RestaurantTracker\" & Settings("varProjectSelected") & "\" & txtItemName.Text & ".txt")
+				Using File.Create("RestaurantTracker\" & Settings("varProjectSelected") & "\" & txtItemName.Text & ".txt")
+				End Using
 				Call MsgBox("Item Added.")
-				Close()
 			Else
 				Call MsgBox("Item already exists.")
 			End If
 		Else
 			Call MsgBox("Invalid Name.")
 		End If
+		Close()
+	End Sub
+
+	Private Sub btnAddCancel_Click(sender As Object, e As EventArgs) Handles btnAddCancel.Click
+		Close()
+	End Sub
+
+	Private Sub FormAddItem_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+		Dispose()
 	End Sub
 End Class
