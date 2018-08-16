@@ -232,7 +232,7 @@ Public Class FormMain
 				consumptionChart.Series(0).ChartType = DataVisualization.Charting.SeriesChartType.Spline
 		End Select
 	End Sub
-
+	'wowowowowow
 	Private Sub cmbCost_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbCost.SelectedIndexChanged
 		Select Case cmbCost.Text
 			Case "Dot"
