@@ -115,16 +115,16 @@ Public Class FormMain
 	End Sub
 
 	Public Sub FormMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-		CenterToScreen()
-		dictSettingsRefresh()
-		itemListRefresh()
-		DataReload()
-		lblDataDate.Text = newDate.ToString("MMMM yyyy")
 		'Creates default directory if it doesn't exist
 		If Directory.Exists(Settings("varDirectory")) = False Then
 			Directory.CreateDirectory(Settings("varDirectory"))
 			File.CreateText(Settings("varDirectory") & "/" & Settings("varSettings"))
 		End If
+		CenterToScreen()
+		dictSettingsRefresh()
+		itemListRefresh()
+		DataReload()
+		lblDataDate.Text = newDate.ToString("MMMM yyyy")
 	End Sub
 
 	Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
