@@ -1,26 +1,21 @@
-﻿Imports System.ComponentModel
-Imports System.IO
-Public Class FormSettings
+﻿Public Class FormSettings
 
-	'Declare
-	Dim timezones As IReadOnlyCollection(Of TimeZoneInfo) = TimeZoneInfo.GetSystemTimeZones()
-	Dim timezoneIDdict As New Dictionary(Of String, String)
+	Public timezones As IReadOnlyCollection(Of TimeZoneInfo) = TimeZoneInfo.GetSystemTimeZones()
+	Public timezoneIDdict As New Dictionary(Of String, String)
 	Dim displayname
 
-	'Form load
 	Private Sub FormSettings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 		CenterToParent()
-		Dim Settings = FormMain.Settings
 		'Add each time zone into Dict
 		For Each timezone As TimeZoneInfo In timezones
 			If timezoneIDdict.ContainsKey(timezone.DisplayName) <> True Then
 				timezoneIDdict.Add(timezone.DisplayName, timezone.Id)
 			End If
-			If timezone.Id = Settings("varLocalTimeZone") Then
+			If timezone.Id = FormMain.Settings("varLocalTimeZone") Then
 				displayname = timezone.DisplayName
 			End If
 		Next
-
+		'Add each time zone to combo box
 		For Each item In timezoneIDdict.Keys
 			cmbTimeZone.Items.Add(item)
 		Next
@@ -32,19 +27,5 @@ Public Class FormSettings
 		cmbTimeZone.SelectedIndex = cmbTimeZone.FindString(timezoneLocal.DisplayName)
 	End Sub
 
-	Private Sub btnSettingsSave_Click(sender As Object, e As EventArgs) Handles btnSettingsSave.Click
-		Dim value As String = ""
-		If timezoneIDdict.TryGetValue(cmbTimeZone.SelectedItem, value) Then
-			FormMain.addSettingsVariable("varLocalTimeZone", value)
-			Call MsgBox("Settings have been updated.")
-			Hide()
-		End If
-	End Sub
-	Private Sub btnSettingCancel_Click(sender As Object, e As EventArgs) Handles btnSettingCancel.Click
-		Hide()
-	End Sub
 
-	Private Sub FormSettings_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-		Dispose()
-	End Sub
 End Class

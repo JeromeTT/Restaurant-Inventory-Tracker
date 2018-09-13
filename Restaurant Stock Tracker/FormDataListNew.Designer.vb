@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormNewDataList
+Partial Class FormDataListNew
 	Inherits System.Windows.Forms.Form
 
 	'Form overrides dispose to clean up the component list.
@@ -23,35 +23,36 @@ Partial Class FormNewDataList
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
 		Me.components = New System.ComponentModel.Container()
-		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormNewDataList))
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormDataListNew))
 		Me.lblNewDataHeader = New System.Windows.Forms.Label()
 		Me.lblCreateNewInstructions = New System.Windows.Forms.Label()
 		Me.lblCreateName = New System.Windows.Forms.Label()
-		Me.txtDLName = New System.Windows.Forms.TextBox()
-		Me.btnCreateCancel = New System.Windows.Forms.Button()
+		Me.txtInvName = New System.Windows.Forms.TextBox()
+		Me.btnCancel = New System.Windows.Forms.Button()
 		Me.btnCreate = New System.Windows.Forms.Button()
 		Me.datalistNameError = New System.Windows.Forms.ErrorProvider(Me.components)
-		Me.ErrorTimer = New System.Windows.Forms.Timer(Me.components)
+		Me.tmrError = New System.Windows.Forms.Timer(Me.components)
+		Me.eprCheckValidName = New System.Windows.Forms.ErrorProvider(Me.components)
 		CType(Me.datalistNameError, System.ComponentModel.ISupportInitialize).BeginInit()
+		CType(Me.eprCheckValidName, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
 		'lblNewDataHeader
 		'
 		Me.lblNewDataHeader.AutoSize = True
 		Me.lblNewDataHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.lblNewDataHeader.Location = New System.Drawing.Point(80, 9)
+		Me.lblNewDataHeader.Location = New System.Drawing.Point(52, 9)
 		Me.lblNewDataHeader.Name = "lblNewDataHeader"
-		Me.lblNewDataHeader.Size = New System.Drawing.Size(235, 25)
+		Me.lblNewDataHeader.Size = New System.Drawing.Size(283, 25)
 		Me.lblNewDataHeader.TabIndex = 0
-		Me.lblNewDataHeader.Text = "Create New Data List"
+		Me.lblNewDataHeader.Text = "Create New Inventory List"
 		'
 		'lblCreateNewInstructions
 		'
-		Me.lblCreateNewInstructions.AutoSize = True
 		Me.lblCreateNewInstructions.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.lblCreateNewInstructions.Location = New System.Drawing.Point(33, 52)
+		Me.lblCreateNewInstructions.Location = New System.Drawing.Point(28, 43)
 		Me.lblCreateNewInstructions.Name = "lblCreateNewInstructions"
-		Me.lblCreateNewInstructions.Size = New System.Drawing.Size(323, 112)
+		Me.lblCreateNewInstructions.Size = New System.Drawing.Size(338, 112)
 		Me.lblCreateNewInstructions.TabIndex = 1
 		Me.lblCreateNewInstructions.Text = resources.GetString("lblCreateNewInstructions.Text")
 		'
@@ -59,36 +60,38 @@ Partial Class FormNewDataList
 		'
 		Me.lblCreateName.AutoSize = True
 		Me.lblCreateName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.lblCreateName.Location = New System.Drawing.Point(25, 198)
+		Me.lblCreateName.Location = New System.Drawing.Point(115, 172)
 		Me.lblCreateName.Name = "lblCreateName"
-		Me.lblCreateName.Size = New System.Drawing.Size(123, 20)
+		Me.lblCreateName.Size = New System.Drawing.Size(153, 20)
 		Me.lblCreateName.TabIndex = 2
-		Me.lblCreateName.Text = "Data List Name:"
+		Me.lblCreateName.Text = "Inventory List Name:"
 		'
-		'txtDLName
+		'txtInvName
 		'
-		Me.txtDLName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.txtDLName.Location = New System.Drawing.Point(154, 198)
-		Me.txtDLName.Name = "txtDLName"
-		Me.txtDLName.Size = New System.Drawing.Size(202, 26)
-		Me.txtDLName.TabIndex = 3
+		Me.txtInvName.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.txtInvName.Location = New System.Drawing.Point(91, 195)
+		Me.txtInvName.Name = "txtInvName"
+		Me.txtInvName.Size = New System.Drawing.Size(202, 26)
+		Me.txtInvName.TabIndex = 3
 		'
-		'btnCreateCancel
+		'btnCancel
 		'
-		Me.btnCreateCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.btnCreateCancel.Location = New System.Drawing.Point(54, 254)
-		Me.btnCreateCancel.Name = "btnCreateCancel"
-		Me.btnCreateCancel.Size = New System.Drawing.Size(104, 35)
-		Me.btnCreateCancel.TabIndex = 4
-		Me.btnCreateCancel.Text = "Cancel"
-		Me.btnCreateCancel.UseVisualStyleBackColor = True
+		Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+		Me.btnCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.btnCancel.Location = New System.Drawing.Point(23, 237)
+		Me.btnCancel.Name = "btnCancel"
+		Me.btnCancel.Size = New System.Drawing.Size(153, 35)
+		Me.btnCancel.TabIndex = 4
+		Me.btnCancel.Text = "Cancel"
+		Me.btnCancel.UseVisualStyleBackColor = True
 		'
 		'btnCreate
 		'
+		Me.btnCreate.DialogResult = System.Windows.Forms.DialogResult.OK
 		Me.btnCreate.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.btnCreate.Location = New System.Drawing.Point(225, 254)
+		Me.btnCreate.Location = New System.Drawing.Point(203, 237)
 		Me.btnCreate.Name = "btnCreate"
-		Me.btnCreate.Size = New System.Drawing.Size(104, 35)
+		Me.btnCreate.Size = New System.Drawing.Size(153, 35)
 		Me.btnCreate.TabIndex = 5
 		Me.btnCreate.Text = "Create"
 		Me.btnCreate.UseVisualStyleBackColor = True
@@ -97,25 +100,32 @@ Partial Class FormNewDataList
 		'
 		Me.datalistNameError.ContainerControl = Me
 		'
-		'ErrorTimer
+		'tmrError
 		'
-		Me.ErrorTimer.Interval = 1000
+		Me.tmrError.Interval = 1000
 		'
-		'FormNewDataList
+		'eprCheckValidName
+		'
+		Me.eprCheckValidName.ContainerControl = Me
+		'
+		'FormDataListNew
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(385, 319)
+		Me.ClientSize = New System.Drawing.Size(380, 296)
 		Me.ControlBox = False
 		Me.Controls.Add(Me.btnCreate)
-		Me.Controls.Add(Me.btnCreateCancel)
-		Me.Controls.Add(Me.txtDLName)
+		Me.Controls.Add(Me.btnCancel)
+		Me.Controls.Add(Me.txtInvName)
 		Me.Controls.Add(Me.lblCreateName)
 		Me.Controls.Add(Me.lblCreateNewInstructions)
 		Me.Controls.Add(Me.lblNewDataHeader)
-		Me.Name = "FormNewDataList"
-		Me.Text = "Create New Data List"
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+		Me.MaximizeBox = False
+		Me.Name = "FormDataListNew"
+		Me.Text = "Create New Inventory List"
 		CType(Me.datalistNameError, System.ComponentModel.ISupportInitialize).EndInit()
+		CType(Me.eprCheckValidName, System.ComponentModel.ISupportInitialize).EndInit()
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
 
@@ -124,9 +134,10 @@ Partial Class FormNewDataList
 	Friend WithEvents lblNewDataHeader As Label
 	Friend WithEvents lblCreateNewInstructions As Label
 	Friend WithEvents lblCreateName As Label
-	Friend WithEvents txtDLName As TextBox
-	Friend WithEvents btnCreateCancel As Button
+	Friend WithEvents txtInvName As TextBox
+	Friend WithEvents btnCancel As Button
 	Friend WithEvents btnCreate As Button
 	Friend WithEvents datalistNameError As ErrorProvider
-	Friend WithEvents ErrorTimer As Timer
+	Friend WithEvents tmrError As Timer
+	Friend WithEvents eprCheckValidName As ErrorProvider
 End Class

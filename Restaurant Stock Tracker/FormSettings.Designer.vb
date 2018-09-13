@@ -26,8 +26,8 @@ Partial Class FormSettings
 		Me.lblSettingsTimeZone = New System.Windows.Forms.Label()
 		Me.cmbTimeZone = New System.Windows.Forms.ComboBox()
 		Me.btnUseLocalTimeZone = New System.Windows.Forms.Button()
-		Me.btnSettingCancel = New System.Windows.Forms.Button()
-		Me.btnSettingsSave = New System.Windows.Forms.Button()
+		Me.btnCancel = New System.Windows.Forms.Button()
+		Me.btnSave = New System.Windows.Forms.Button()
 		Me.SuspendLayout()
 		'
 		'lblSettingsHeader
@@ -68,23 +68,25 @@ Partial Class FormSettings
 		Me.btnUseLocalTimeZone.Text = "Use Local Time Zone"
 		Me.btnUseLocalTimeZone.UseVisualStyleBackColor = True
 		'
-		'btnSettingCancel
+		'btnCancel
 		'
-		Me.btnSettingCancel.Location = New System.Drawing.Point(207, 101)
-		Me.btnSettingCancel.Name = "btnSettingCancel"
-		Me.btnSettingCancel.Size = New System.Drawing.Size(95, 26)
-		Me.btnSettingCancel.TabIndex = 5
-		Me.btnSettingCancel.Text = "Cancel"
-		Me.btnSettingCancel.UseVisualStyleBackColor = True
+		Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+		Me.btnCancel.Location = New System.Drawing.Point(207, 101)
+		Me.btnCancel.Name = "btnCancel"
+		Me.btnCancel.Size = New System.Drawing.Size(95, 26)
+		Me.btnCancel.TabIndex = 5
+		Me.btnCancel.Text = "Cancel"
+		Me.btnCancel.UseVisualStyleBackColor = True
 		'
-		'btnSettingsSave
+		'btnSave
 		'
-		Me.btnSettingsSave.Location = New System.Drawing.Point(337, 101)
-		Me.btnSettingsSave.Name = "btnSettingsSave"
-		Me.btnSettingsSave.Size = New System.Drawing.Size(95, 26)
-		Me.btnSettingsSave.TabIndex = 6
-		Me.btnSettingsSave.Text = "Save"
-		Me.btnSettingsSave.UseVisualStyleBackColor = True
+		Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
+		Me.btnSave.Location = New System.Drawing.Point(337, 101)
+		Me.btnSave.Name = "btnSave"
+		Me.btnSave.Size = New System.Drawing.Size(95, 26)
+		Me.btnSave.TabIndex = 6
+		Me.btnSave.Text = "Save"
+		Me.btnSave.UseVisualStyleBackColor = True
 		'
 		'FormSettings
 		'
@@ -92,13 +94,14 @@ Partial Class FormSettings
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(634, 161)
 		Me.ControlBox = False
-		Me.Controls.Add(Me.btnSettingsSave)
-		Me.Controls.Add(Me.btnSettingCancel)
+		Me.Controls.Add(Me.btnSave)
+		Me.Controls.Add(Me.btnCancel)
 		Me.Controls.Add(Me.btnUseLocalTimeZone)
 		Me.Controls.Add(Me.cmbTimeZone)
 		Me.Controls.Add(Me.lblSettingsTimeZone)
 		Me.Controls.Add(Me.lblSettingsHeader)
 		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+		Me.MaximizeBox = False
 		Me.Name = "FormSettings"
 		Me.Text = "Settings"
 		Me.ResumeLayout(False)
@@ -109,6 +112,6 @@ Partial Class FormSettings
 	Friend WithEvents lblSettingsTimeZone As Label
 	Friend WithEvents cmbTimeZone As ComboBox
 	Friend WithEvents btnUseLocalTimeZone As Button
-	Friend WithEvents btnSettingCancel As Button
-	Friend WithEvents btnSettingsSave As Button
+	Friend WithEvents btnCancel As Button
+	Friend WithEvents btnSave As Button
 End Class

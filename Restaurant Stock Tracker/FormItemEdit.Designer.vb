@@ -22,55 +22,59 @@ Partial Class FormItemEdit
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()> _
 	Private Sub InitializeComponent()
-		Me.Label1 = New System.Windows.Forms.Label()
+		Me.lblHeader = New System.Windows.Forms.Label()
 		Me.lblDate = New System.Windows.Forms.Label()
 		Me.btnCancel = New System.Windows.Forms.Button()
 		Me.btnSave = New System.Windows.Forms.Button()
 		Me.numCost = New System.Windows.Forms.NumericUpDown()
 		Me.numEnd = New System.Windows.Forms.NumericUpDown()
 		Me.numStart = New System.Windows.Forms.NumericUpDown()
-		Me.Label2 = New System.Windows.Forms.Label()
-		Me.Label3 = New System.Windows.Forms.Label()
-		Me.Label4 = New System.Windows.Forms.Label()
+		Me.lblCostHeader = New System.Windows.Forms.Label()
+		Me.lblStartHeader = New System.Windows.Forms.Label()
+		Me.lblEndHeader = New System.Windows.Forms.Label()
+		Me.btnForward = New System.Windows.Forms.Button()
+		Me.btnBack = New System.Windows.Forms.Button()
 		CType(Me.numCost, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.numEnd, System.ComponentModel.ISupportInitialize).BeginInit()
 		CType(Me.numStart, System.ComponentModel.ISupportInitialize).BeginInit()
 		Me.SuspendLayout()
 		'
-		'Label1
+		'lblHeader
 		'
-		Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.Label1.Location = New System.Drawing.Point(1, 9)
-		Me.Label1.Name = "Label1"
-		Me.Label1.Size = New System.Drawing.Size(248, 25)
-		Me.Label1.TabIndex = 0
-		Me.Label1.Text = "Editing Data from"
-		Me.Label1.TextAlign = System.Drawing.ContentAlignment.TopCenter
+		Me.lblHeader.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.lblHeader.Location = New System.Drawing.Point(1, 9)
+		Me.lblHeader.Name = "lblHeader"
+		Me.lblHeader.Size = New System.Drawing.Size(324, 25)
+		Me.lblHeader.TabIndex = 0
+		Me.lblHeader.Text = "Editing Data from"
+		Me.lblHeader.TextAlign = System.Drawing.ContentAlignment.TopCenter
 		'
 		'lblDate
 		'
 		Me.lblDate.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.lblDate.Location = New System.Drawing.Point(-2, 34)
+		Me.lblDate.Location = New System.Drawing.Point(5, 35)
 		Me.lblDate.Name = "lblDate"
-		Me.lblDate.Size = New System.Drawing.Size(251, 25)
+		Me.lblDate.Size = New System.Drawing.Size(320, 25)
 		Me.lblDate.TabIndex = 1
 		Me.lblDate.Text = "<Date>"
 		Me.lblDate.TextAlign = System.Drawing.ContentAlignment.TopCenter
 		'
 		'btnCancel
 		'
+		Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
 		Me.btnCancel.Location = New System.Drawing.Point(15, 140)
 		Me.btnCancel.Name = "btnCancel"
-		Me.btnCancel.Size = New System.Drawing.Size(109, 34)
+		Me.btnCancel.Size = New System.Drawing.Size(132, 34)
 		Me.btnCancel.TabIndex = 2
 		Me.btnCancel.Text = "Cancel"
 		Me.btnCancel.UseVisualStyleBackColor = True
 		'
 		'btnSave
 		'
-		Me.btnSave.Location = New System.Drawing.Point(140, 140)
+		Me.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK
+		Me.btnSave.Location = New System.Drawing.Point(184, 140)
 		Me.btnSave.Name = "btnSave"
-		Me.btnSave.Size = New System.Drawing.Size(109, 34)
+		Me.btnSave.Size = New System.Drawing.Size(131, 34)
 		Me.btnSave.TabIndex = 3
 		Me.btnSave.Text = "Apply Changes"
 		Me.btnSave.UseVisualStyleBackColor = True
@@ -78,7 +82,7 @@ Partial Class FormItemEdit
 		'numCost
 		'
 		Me.numCost.DecimalPlaces = 2
-		Me.numCost.Location = New System.Drawing.Point(103, 62)
+		Me.numCost.Location = New System.Drawing.Point(169, 63)
 		Me.numCost.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
 		Me.numCost.Name = "numCost"
 		Me.numCost.Size = New System.Drawing.Size(146, 20)
@@ -86,7 +90,7 @@ Partial Class FormItemEdit
 		'
 		'numEnd
 		'
-		Me.numEnd.Location = New System.Drawing.Point(103, 114)
+		Me.numEnd.Location = New System.Drawing.Point(169, 114)
 		Me.numEnd.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
 		Me.numEnd.Name = "numEnd"
 		Me.numEnd.Size = New System.Drawing.Size(146, 20)
@@ -94,54 +98,76 @@ Partial Class FormItemEdit
 		'
 		'numStart
 		'
-		Me.numStart.Location = New System.Drawing.Point(103, 88)
+		Me.numStart.Location = New System.Drawing.Point(169, 88)
 		Me.numStart.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
 		Me.numStart.Name = "numStart"
 		Me.numStart.Size = New System.Drawing.Size(146, 20)
 		Me.numStart.TabIndex = 6
 		'
-		'Label2
+		'lblCostHeader
 		'
-		Me.Label2.Location = New System.Drawing.Point(13, 63)
-		Me.Label2.Name = "Label2"
-		Me.Label2.Size = New System.Drawing.Size(84, 15)
-		Me.Label2.TabIndex = 7
-		Me.Label2.Text = "Cost ($) :"
-		Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+		Me.lblCostHeader.Location = New System.Drawing.Point(13, 63)
+		Me.lblCostHeader.Name = "lblCostHeader"
+		Me.lblCostHeader.Size = New System.Drawing.Size(84, 15)
+		Me.lblCostHeader.TabIndex = 7
+		Me.lblCostHeader.Text = "Selling Cost ($) :"
+		Me.lblCostHeader.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
 		'
-		'Label3
+		'lblStartHeader
 		'
-		Me.Label3.Location = New System.Drawing.Point(13, 89)
-		Me.Label3.Name = "Label3"
-		Me.Label3.Size = New System.Drawing.Size(84, 15)
-		Me.Label3.TabIndex = 8
-		Me.Label3.Text = "Start Quantity :"
-		Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+		Me.lblStartHeader.Location = New System.Drawing.Point(13, 89)
+		Me.lblStartHeader.Name = "lblStartHeader"
+		Me.lblStartHeader.Size = New System.Drawing.Size(84, 15)
+		Me.lblStartHeader.TabIndex = 8
+		Me.lblStartHeader.Text = "Start Quantity :"
+		Me.lblStartHeader.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
 		'
-		'Label4
+		'lblEndHeader
 		'
-		Me.Label4.Location = New System.Drawing.Point(13, 115)
-		Me.Label4.Name = "Label4"
-		Me.Label4.Size = New System.Drawing.Size(84, 15)
-		Me.Label4.TabIndex = 9
-		Me.Label4.Text = "End Quantity :"
-		Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+		Me.lblEndHeader.Location = New System.Drawing.Point(13, 115)
+		Me.lblEndHeader.Name = "lblEndHeader"
+		Me.lblEndHeader.Size = New System.Drawing.Size(84, 15)
+		Me.lblEndHeader.TabIndex = 9
+		Me.lblEndHeader.Text = "End Quantity :"
+		Me.lblEndHeader.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+		'
+		'btnForward
+		'
+		Me.btnForward.Location = New System.Drawing.Point(240, 34)
+		Me.btnForward.Name = "btnForward"
+		Me.btnForward.Size = New System.Drawing.Size(75, 23)
+		Me.btnForward.TabIndex = 12
+		Me.btnForward.Text = ">>>"
+		Me.btnForward.UseVisualStyleBackColor = True
+		'
+		'btnBack
+		'
+		Me.btnBack.Location = New System.Drawing.Point(12, 34)
+		Me.btnBack.Name = "btnBack"
+		Me.btnBack.Size = New System.Drawing.Size(75, 23)
+		Me.btnBack.TabIndex = 13
+		Me.btnBack.Text = "<<<"
+		Me.btnBack.UseVisualStyleBackColor = True
 		'
 		'FormItemEdit
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-		Me.ClientSize = New System.Drawing.Size(265, 197)
-		Me.Controls.Add(Me.Label4)
-		Me.Controls.Add(Me.Label3)
-		Me.Controls.Add(Me.Label2)
+		Me.ClientSize = New System.Drawing.Size(327, 197)
+		Me.Controls.Add(Me.btnBack)
+		Me.Controls.Add(Me.btnForward)
+		Me.Controls.Add(Me.lblEndHeader)
+		Me.Controls.Add(Me.lblStartHeader)
+		Me.Controls.Add(Me.lblCostHeader)
 		Me.Controls.Add(Me.numStart)
 		Me.Controls.Add(Me.numEnd)
 		Me.Controls.Add(Me.numCost)
 		Me.Controls.Add(Me.btnSave)
 		Me.Controls.Add(Me.btnCancel)
 		Me.Controls.Add(Me.lblDate)
-		Me.Controls.Add(Me.Label1)
+		Me.Controls.Add(Me.lblHeader)
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+		Me.MaximizeBox = False
 		Me.Name = "FormItemEdit"
 		Me.Text = "Edit Item"
 		CType(Me.numCost, System.ComponentModel.ISupportInitialize).EndInit()
@@ -151,14 +177,16 @@ Partial Class FormItemEdit
 
 	End Sub
 
-	Friend WithEvents Label1 As Label
+	Friend WithEvents lblHeader As Label
 	Friend WithEvents lblDate As Label
 	Friend WithEvents btnCancel As Button
 	Friend WithEvents btnSave As Button
 	Friend WithEvents numCost As NumericUpDown
 	Friend WithEvents numEnd As NumericUpDown
 	Friend WithEvents numStart As NumericUpDown
-	Friend WithEvents Label2 As Label
-	Friend WithEvents Label3 As Label
-	Friend WithEvents Label4 As Label
+	Friend WithEvents lblCostHeader As Label
+	Friend WithEvents lblStartHeader As Label
+	Friend WithEvents lblEndHeader As Label
+	Friend WithEvents btnForward As Button
+	Friend WithEvents btnBack As Button
 End Class

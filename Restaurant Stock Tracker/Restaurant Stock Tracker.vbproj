@@ -92,6 +92,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="FormAbout.Designer.vb">
+      <DependentUpon>FormAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDataListDelete.Designer.vb">
+      <DependentUpon>FormDataListDelete.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDataListDelete.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDataListDeleteConfirmation.Designer.vb">
+      <DependentUpon>FormDataListDeleteConfirmation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormDataListDeleteConfirmation.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormItemDelete.Designer.vb">
+      <DependentUpon>FormItemDelete.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormItemDelete.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="FormMain.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -105,10 +129,10 @@
     <Compile Include="FormSettings.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormNewDataList.Designer.vb">
-      <DependentUpon>FormNewDataList.vb</DependentUpon>
+    <Compile Include="FormDataListNew.Designer.vb">
+      <DependentUpon>FormDataListNew.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormNewDataList.vb">
+    <Compile Include="FormDataListNew.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormDataListSelect.Designer.vb">
@@ -117,16 +141,16 @@
     <Compile Include="FormDataListSelect.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAddItem.Designer.vb">
-      <DependentUpon>FormAddItem.vb</DependentUpon>
+    <Compile Include="FormItemAdd.Designer.vb">
+      <DependentUpon>FormItemAdd.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormAddItem.vb">
+    <Compile Include="FormItemAdd.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormItemInfo.Designer.vb">
-      <DependentUpon>FormItemInfo.vb</DependentUpon>
+    <Compile Include="FormItemStats.Designer.vb">
+      <DependentUpon>FormItemStats.vb</DependentUpon>
     </Compile>
-    <Compile Include="FormItemInfo.vb">
+    <Compile Include="FormItemStats.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormItemEdit.Designer.vb">
@@ -152,23 +176,35 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FormAbout.resx">
+      <DependentUpon>FormAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDataListDelete.resx">
+      <DependentUpon>FormDataListDelete.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDataListDeleteConfirmation.resx">
+      <DependentUpon>FormDataListDeleteConfirmation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormItemDelete.resx">
+      <DependentUpon>FormItemDelete.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSettings.resx">
       <DependentUpon>FormSettings.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormNewDataList.resx">
-      <DependentUpon>FormNewDataList.vb</DependentUpon>
+    <EmbeddedResource Include="FormDataListNew.resx">
+      <DependentUpon>FormDataListNew.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormDataListSelect.resx">
       <DependentUpon>FormDataListSelect.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAddItem.resx">
-      <DependentUpon>FormAddItem.vb</DependentUpon>
+    <EmbeddedResource Include="FormItemAdd.resx">
+      <DependentUpon>FormItemAdd.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormItemInfo.resx">
-      <DependentUpon>FormItemInfo.vb</DependentUpon>
+    <EmbeddedResource Include="FormItemStats.resx">
+      <DependentUpon>FormItemStats.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormItemEdit.resx">
       <DependentUpon>FormItemEdit.vb</DependentUpon>
@@ -190,7 +226,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />

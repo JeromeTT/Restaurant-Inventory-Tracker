@@ -1,10 +1,9 @@
-﻿Imports System.ComponentModel
-Imports System.IO
+﻿Imports System.IO
 Public Class FormDataListSelect
-	Private Sub FormDataList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-		CenterToParent()
-		Dim Settings = FormMain.Settings
-		Dim folderArray As Array = Directory.GetDirectories(Settings("varDirectory"))
+	''' <summary>Loads the name of each project into the selection list.</summary>
+	Private Sub ListRefresh()
+		lstDataList.Items.Clear()
+		Dim folderArray As Array = Directory.GetDirectories(FormMain.saveDirectory)
 		For Each folderdir In folderArray
 			Dim folder As New DirectoryInfo(folderdir)
 			lstDataList.Items.Add(folder.Name)
@@ -12,17 +11,34 @@ Public Class FormDataListSelect
 		lstDataList.Sorted = True
 	End Sub
 
-	Private Sub btnSelect_Click(sender As Object, e As EventArgs) Handles btnSelect.Click
-		FormMain.addSettingsVariable("varProjectSelected", lstDataList.SelectedItem)
-		Close()
+	Private Sub FormDataList_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+		CenterToParent()
+		ListRefresh()
 	End Sub
 
-	Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
-		Close()
+	Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
+		Select Case FormDataListNew.ShowDialog()
+			Case DialogResult.Cancel
+				With FormDataListNew
+					.Close()
+					.Dispose()
+				End With
+			Case DialogResult.OK
+				With FormDataListNew
+					.Close()
+					.Dispose()
+				End With
+		End Select
+		ListRefresh()
 	End Sub
 
-	Private Sub FormDataListSelect_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
-		Dispose()
+	'1000 ms timer
+	Private Sub Timer100_Tick(sender As Object, e As EventArgs) Handles Timer100.Tick
+		Select Case lstDataList.SelectedIndex
+			Case -1
+				btnSelect.Enabled = False
+			Case <> -1
+				btnSelect.Enabled = True
+		End Select
 	End Sub
-
 End Class

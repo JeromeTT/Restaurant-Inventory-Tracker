@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class FormAddItem
+Partial Class FormItemAdd
 	Inherits System.Windows.Forms.Form
 
 	'Form overrides dispose to clean up the component list.
@@ -22,11 +22,11 @@ Partial Class FormAddItem
 	'Do not modify it using the code editor.
 	<System.Diagnostics.DebuggerStepThrough()>
 	Private Sub InitializeComponent()
-		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormAddItem))
+		Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormItemAdd))
 		Me.lblCreateNewInstructions = New System.Windows.Forms.Label()
 		Me.lblNewDataHeader = New System.Windows.Forms.Label()
 		Me.btnItemAdd = New System.Windows.Forms.Button()
-		Me.btnAddCancel = New System.Windows.Forms.Button()
+		Me.btnCancel = New System.Windows.Forms.Button()
 		Me.txtItemName = New System.Windows.Forms.TextBox()
 		Me.lblCreateName = New System.Windows.Forms.Label()
 		Me.SuspendLayout()
@@ -53,6 +53,7 @@ Partial Class FormAddItem
 		'
 		'btnItemAdd
 		'
+		Me.btnItemAdd.DialogResult = System.Windows.Forms.DialogResult.OK
 		Me.btnItemAdd.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
 		Me.btnItemAdd.Location = New System.Drawing.Point(207, 236)
 		Me.btnItemAdd.Name = "btnItemAdd"
@@ -61,15 +62,16 @@ Partial Class FormAddItem
 		Me.btnItemAdd.Text = "Create"
 		Me.btnItemAdd.UseVisualStyleBackColor = True
 		'
-		'btnAddCancel
+		'btnCancel
 		'
-		Me.btnAddCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-		Me.btnAddCancel.Location = New System.Drawing.Point(40, 236)
-		Me.btnAddCancel.Name = "btnAddCancel"
-		Me.btnAddCancel.Size = New System.Drawing.Size(104, 35)
-		Me.btnAddCancel.TabIndex = 8
-		Me.btnAddCancel.Text = "Cancel"
-		Me.btnAddCancel.UseVisualStyleBackColor = True
+		Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
+		Me.btnCancel.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+		Me.btnCancel.Location = New System.Drawing.Point(40, 236)
+		Me.btnCancel.Name = "btnCancel"
+		Me.btnCancel.Size = New System.Drawing.Size(104, 35)
+		Me.btnCancel.TabIndex = 8
+		Me.btnCancel.Text = "Cancel"
+		Me.btnCancel.UseVisualStyleBackColor = True
 		'
 		'txtItemName
 		'
@@ -89,18 +91,20 @@ Partial Class FormAddItem
 		Me.lblCreateName.TabIndex = 6
 		Me.lblCreateName.Text = "Item Name:"
 		'
-		'FormAddItem
+		'FormItemAdd
 		'
 		Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
 		Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
 		Me.ClientSize = New System.Drawing.Size(345, 298)
 		Me.Controls.Add(Me.btnItemAdd)
-		Me.Controls.Add(Me.btnAddCancel)
+		Me.Controls.Add(Me.btnCancel)
 		Me.Controls.Add(Me.txtItemName)
 		Me.Controls.Add(Me.lblCreateName)
 		Me.Controls.Add(Me.lblNewDataHeader)
 		Me.Controls.Add(Me.lblCreateNewInstructions)
-		Me.Name = "FormAddItem"
+		Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+		Me.MaximizeBox = False
+		Me.Name = "FormItemAdd"
 		Me.Text = "Add Item"
 		Me.ResumeLayout(False)
 		Me.PerformLayout()
@@ -110,7 +114,7 @@ Partial Class FormAddItem
 	Friend WithEvents lblCreateNewInstructions As Label
 	Friend WithEvents lblNewDataHeader As Label
 	Friend WithEvents btnItemAdd As Button
-	Friend WithEvents btnAddCancel As Button
+	Friend WithEvents btnCancel As Button
 	Friend WithEvents txtItemName As TextBox
 	Friend WithEvents lblCreateName As Label
 End Class
