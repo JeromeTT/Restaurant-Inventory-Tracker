@@ -53,7 +53,6 @@ Public Class FormMain
 	End Class
 
 
-
 	'SUB why are there so many  >_<
 	''' <summary>Checks if input is a valid input. Returns boolean.</summary>
 	''' <param name="strInputText">The input to check.</param>

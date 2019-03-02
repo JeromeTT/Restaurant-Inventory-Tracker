@@ -1,5 +1,4 @@
 ﻿Public Class FormSettings
-
 	Public timezones As IReadOnlyCollection(Of TimeZoneInfo) = TimeZoneInfo.GetSystemTimeZones()
 	Public timezoneIDdict As New Dictionary(Of String, String)
 	Dim displayname
@@ -26,6 +25,4 @@
 		Dim timezoneLocal As TimeZoneInfo = TimeZoneInfo.Local
 		cmbTimeZone.SelectedIndex = cmbTimeZone.FindString(timezoneLocal.DisplayName)
 	End Sub
-
-
 End Class
